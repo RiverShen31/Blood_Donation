@@ -6,6 +6,7 @@ const bloodGroupDetailsContoller = async (req, res) => {
     const bloodGroups = ["O+", "O-", "AB+", "AB-", "A+", "A-", "B+", "B-"];
     const bloodGroupData = [];
     const organisation = new mongoose.Types.ObjectId(req.body.userId);
+    // console.log(organisation);
     //get single blood group
     await Promise.all(
       bloodGroups.map(async (bloodGroup) => {
@@ -42,6 +43,8 @@ const bloodGroupDetailsContoller = async (req, res) => {
           },
         ]);
         //CALCULATE TOTAL
+        // console.log(totalIn[0]);
+        // console.log(totalOut[0]);
         const availabeBlood =
           (totalIn[0]?.total || 0) - (totalOut[0]?.total || 0);
 

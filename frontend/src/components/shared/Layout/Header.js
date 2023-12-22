@@ -15,11 +15,11 @@ const Header = () => {
 
   return (
     <>
-      <nav className="navbar">
-        <div className="container-fluid ">
-          <div className="navbar-brand h1 ">
+      <nav className="navbar navbar-dark bg-dark box-shadow">
+        <div className="container d-flex justify-content-between">
+          <Link to="/" className="navbar-brand h1 ">
             <BiDonateBlood color="red" /> Blood Bank App
-          </div>
+          </Link>
           <ul className="navbar-nav flex-row">
             <li className="nav-item mx-3">
               <p className="nav-link">
@@ -29,6 +29,7 @@ const Header = () => {
                 <span className="badge bg-secondary">{user?.role}</span>
               </p>
             </li>
+            
             {location.pathname === "/" ||
             location.pathname === "/donar" ||
             location.pathname === "/hospital" ? (

@@ -18,7 +18,7 @@ const HomePage = () => {
       const { data } = await API.get("/inventory/get-inventory");
       if (data?.success) {
         setData(data?.inventory);
-        // console.log(data);
+        console.log(data);
       }
     } catch (error) {
       console.log(error);
@@ -46,14 +46,14 @@ const HomePage = () => {
               <i className="fa-solid fa-plus text-success py-4"></i>
               Add Inventory
             </h4>
-            <table className="table ">
-              <thead>
+            <table className="table table-striped">
+              <thead className="thead-dark">
                 <tr>
                   <th scope="col">Blood Group</th>
                   <th scope="col">Inventory Type</th>
                   <th scope="col">Quantity</th>
                   <th scope="col">Donar Email</th>
-                  <th scope="col">TIme & Date</th>
+                  <th scope="col">Time & Date</th>
                 </tr>
               </thead>
               <tbody>
@@ -70,7 +70,6 @@ const HomePage = () => {
                 ))}
               </tbody>
             </table>
-
             <Modal />
           </div>
         </>
