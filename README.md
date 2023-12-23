@@ -8,7 +8,7 @@
       email: rivershen1@gmail.com
       password: 123456
    2. User
-      email: rivershen2@gmail.com
+      email: user12@gmail.com
       password: 123456
    3. Hospital
       email: rivershen3@gmail.com
