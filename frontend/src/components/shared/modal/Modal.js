@@ -22,6 +22,10 @@ const Modal = () => {
         bloodGroup,
         quantity,
       });
+      const {data: data1} = await API.put(`gift/update-user-point/${user._id}`,{
+        point: user.point + 50
+      });
+      console.log(data1);
       if (data?.success) {
         alert("New Record Created");
         window.location.reload();

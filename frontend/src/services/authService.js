@@ -23,7 +23,8 @@ export const handleRegister = (
   organisationName,
   address,
   hospitalName,
-  website
+  website,
+  point
 ) => {
   e.preventDefault();
   try {
@@ -38,6 +39,7 @@ export const handleRegister = (
         address,
         hospitalName,
         website,
+        point
       })
     );
   } catch (error) {

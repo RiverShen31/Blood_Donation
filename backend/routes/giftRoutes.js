@@ -1,6 +1,6 @@
 const express = require("express");
 const authMiddleware = require("../middlewares/authMiddelware");
-const {GetGiftListController, createGiftController, deleteGiftController, updateGiftController} = require("../controllers/giftsController");
+const {GetGiftListController, createGiftController, deleteGiftController, updateGiftController, updateUserPointController} = require("../controllers/giftsController");
 
 const router = express.Router();
 
@@ -15,5 +15,7 @@ router.post("/create-gift", authMiddleware, createGiftController);
 router.delete("/delete-gift/:id", authMiddleware, deleteGiftController);
 // Update
 router.put("/update-gift/:id", authMiddleware, updateGiftController);
+// Update user point
+router.put("/update-user-point/:id", authMiddleware, updateUserPointController);
 
 module.exports = router;

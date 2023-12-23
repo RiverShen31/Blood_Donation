@@ -30,7 +30,8 @@ const Form = ({ formType, submitBtn, formTitle }) => {
               organisationName,
               address,
               hospitalName,
-              website
+              website,
+              0
             );
         }}
       >

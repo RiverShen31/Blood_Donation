@@ -18,6 +18,7 @@ const registerController = async (req, res) => {
     req.body.password = hashedPassword;
     //rest data
     const user = new userModel(req.body);
+    console.log(user);
     await user.save();
     return res.status(201).send({
       success: true,

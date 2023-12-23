@@ -15,6 +15,7 @@ import API from "../../services/API";
 import Layout from "../../components/shared/Layout/Layout";
 import { useSelector } from "react-redux";
 import ModalGift from "./../../components/shared/modal/ModalGift";
+import { useNavigate } from "react-router-dom";
 
 const imgArray = [
   BagImg,
@@ -32,6 +33,7 @@ const imgArray = [
 ];
 
 const GiftList = () => {
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const [data, setData] = useState([]);
 
@@ -55,11 +57,39 @@ const GiftList = () => {
     }
   };
 
+  const ReceivedGift = async (record) => {
+    console.log(record);
+    console.log(user.point);
+    if (user?.point < record.point) {
+      alert("You do not have enough point");
+      return;
+    }
+    if (record.remain < 1) {
+      alert("This gifts is out of stock");
+      return;
+    }
+    const {data} = await API.put(`gift/update-gift/${record._id}`,{
+      giftName: record.giftName,
+      point: record.point,
+      remain: record.remain-1
+    });
+    console.log(data);
+    const {data: data1} = await API.put(`gift/update-user-point/${user._id}`,{
+      point: user.point - record.point
+    });
+    console.log(data1);
+    if (data?.success) {
+      alert("Received Successfully");
+      navigate("/gift");
+      window.location.reload();
+    }
+  }
+
   // find gift data
   const getGifts = async () => {
     try {
       const { data } = await API.get("/gift/gift-list");
-      console.log(data);
+      // console.log(data);
       if (data?.success) {
         setData(data?.giftData);
       }
@@ -67,6 +97,10 @@ const GiftList = () => {
       console.log(error);
     }
   };
+  // useEffect(() => {
+  //   console.log(user);
+  // });
+
   useEffect(() => {
     getGifts();
   }, []);
@@ -74,6 +108,11 @@ const GiftList = () => {
   return (
     <Layout>
       <h1>GIFT PAGE</h1>
+      {user?.role === "donar" && (
+        <div className="container">
+          <p>Your point: {user?.point || 0}</p>
+        </div>
+      )}
       {user?.role === "organisation" && (
         <div className="col-md-3">
         <button
@@ -127,6 +166,13 @@ const GiftList = () => {
                       </div>
                     </div>
                   </div>
+                )}
+                {user?.role === "donar" && (
+                    <div>
+                        <button type="button" className="btn btn-primary" onClick={() => ReceivedGift(record)}>
+                            Choose
+                        </button>
+                    </div>
                 )}
               </div>
             </div>
