@@ -2,29 +2,15 @@ const mongoose = require("mongoose");
 
 const giftSchema = new mongoose.Schema(
   {
-    GiftName: {
+    giftName: {
       type: String,
-      required: [true, "GiftName type require"],
-      enum: [
-        "bag",
-        "bowl-set",
-        "cactus",
-        "glasses",
-        "helmet",
-        "laptop-bag",
-        "shampoo",
-        "succulent",
-        "super-tepid",
-        "tea-set",
-        "teddy-octopus",
-        "teddy",
-      ],
+      required: [true, "GiftName type require"]
     },
-    Point: {
+    point: {
       type: Number,
       require: [true, "point is require"],
     },
-    Remain: {
+    remain: {
       type: Number,
       require: [true, "Remain is require"],
     },

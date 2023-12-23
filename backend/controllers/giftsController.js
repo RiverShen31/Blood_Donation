@@ -1,10 +1,16 @@
 const giftModel = require("../models/giftModel");
 const mongoose = require("mongoose");
 // GET GIFT DATA
-const GetGiftController = async (req, res) => {
+const GetGiftListController = async (req, res) => {
     try {
-        const gift = await giftModel.find({
-            
+        const giftData = await giftModel
+            .find()
+            .sort({createAt: -1});
+        return res.status(200).send({
+            success: true,
+            TotalCount: giftData.length,
+            message: "Gift List Fetched Successfully",
+            giftData
         })
     } catch (error) {
         console.log(error); 
@@ -15,5 +21,63 @@ const GetGiftController = async (req, res) => {
         });
     }
 };
+const createGiftController = async(req, res) => {
+    try {
+        // console.log(req.body);
+        const gift = new giftModel(req.body);
+        // console.log(gift);
+        await gift.save();
+        return res.status(201).send({
+            success: true,
+            message: "New Gift Added",
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            success: false,
+            message: "Error in Create Gift API",
+            error,
+        })
+    }
+}
 
-module.exports = {GetGiftController};
+const deleteGiftController = async(req, res) => {
+    try {
+        // console.log(req.params.id); 
+        await giftModel.findByIdAndDelete(req.params.id);
+        return res.status(200).send({
+            success: true,
+            message: "Record Deleted successfully",
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            success:false,
+            message: "Error while deleting",
+            error,
+        });
+    };
+};
+
+const updateGiftController = async(req, res) => {
+    try {
+        const {id} = req.params;
+        const {giftName, point, remain} = req.body;
+        console.log(req.body);
+        await giftModel.findByIdAndUpdate(id,
+            {giftName, point, remain});
+        return res.status(200).send({
+            success:true,
+            message: "Record Updated successfully",
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            success:false,
+            message: "Error while updating",
+            error,
+        })
+    }
+}
+
+module.exports = {GetGiftListController,createGiftController,deleteGiftController,updateGiftController};

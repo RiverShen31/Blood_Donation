@@ -16,11 +16,13 @@ import DonarList from "./pages/Admin/DonarList";
 import HospitalList from "./pages/Admin/HospitalList";
 import OrgList from "./pages/Admin/OrgList";
 import AdminHome from "./pages/Admin/AdminHome";
+import GiftList from "./pages/gift/Gift";
 function App() {
   return (
     <>
       <ToastContainer />
       <Routes>
+        {/* ADMIN */}
         <Route
           path="/admin"
           element={
@@ -50,6 +52,15 @@ function App() {
           element={
             <ProtectedRoute>
               <OrgList />
+            </ProtectedRoute>
+          }
+        />
+        {/*  */}
+        <Route 
+          path="/gift"
+          element={
+            <ProtectedRoute>
+              <GiftList />
             </ProtectedRoute>
           }
         />

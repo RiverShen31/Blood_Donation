@@ -74,7 +74,9 @@ const createInventoryController = async (req, res) => {
     }
 
     //save record
+    // console.log(req.body);
     const inventory = new inventoryModel(req.body);
+    // console.log(inventory);
     await inventory.save();
     return res.status(201).send({
       success: true,
