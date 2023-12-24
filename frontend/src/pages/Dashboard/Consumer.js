@@ -10,12 +10,7 @@ const Consumer = () => {
   //find donar records
   const getDonars = async () => {
     try {
-      const { data } = await API.post("/inventory/get-inventory-hospital", {
-        filters: {
-          inventoryType: "out",
-          hospital: user?._id,
-        },
-      });
+      const { data } = await API.get("/inventory/get-inventory-hospital");
       if (data?.success) {
         setData(data?.inventory);
         console.log(data);
@@ -27,7 +22,7 @@ const Consumer = () => {
 
   useEffect(() => {
     getDonars();
-  }, []);
+  });
 
   return (
     <Layout>

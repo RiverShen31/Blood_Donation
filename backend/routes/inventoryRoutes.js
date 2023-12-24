@@ -28,7 +28,7 @@ router.get(
 );
 
 //GET HOSPITAL BLOOD RECORDS
-router.post(
+router.get(
   "/get-inventory-hospital",
   authMiddelware,
   getInventoryHospitalController

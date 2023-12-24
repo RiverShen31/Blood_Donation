@@ -34,6 +34,7 @@ const createInventoryController = async (req, res) => {
           $match: {
             organisation,
             inventoryType: "in",
+            accepted: "accept",
             bloodGroup: requestedBloodGroup,
           },
         },
@@ -53,6 +54,7 @@ const createInventoryController = async (req, res) => {
           $match: {
             organisation,
             inventoryType: "out",
+            accepted: "accept",
             bloodGroup: requestedBloodGroup,
           },
         },
@@ -87,7 +89,7 @@ const createInventoryController = async (req, res) => {
     req.body.organisation = organisationObject._id;
     // console.log(req.body);
     const inventory = new inventoryModel(req.body);
-    // console.log(inventory);
+    console.log(inventory);
     await inventory.save();
     return res.status(201).send({
       success: true,
@@ -106,13 +108,13 @@ const createInventoryController = async (req, res) => {
 // GET ALL BLOOD RECORS
 const getInventoryController = async (req, res) => {
   try {
-    console.log(req.body.userId);
+    // console.log(req.body.userId);
     const inventory = await inventoryModel
       .find({
-        hospital: req.body.userId,
+        donar: req.body.userId,
       })
       .populate("organisation")
-      .populate("donar")
+      .populate("hospital")
       .sort({ createdAt: -1 });
     // console.log(inventory);
     return res.status(200).send({
@@ -133,9 +135,12 @@ const getInventoryController = async (req, res) => {
 const getInventoryHospitalController = async (req, res) => {
   try {
     const inventory = await inventoryModel
-      .find(req.body.filters)
+      // .find(req.body.filters)
+      .find({
+        hospital: req.body.userId
+      })
       .populate("donar")
-      .populate("hospital")
+      // .populate("hospital")
       .populate("organisation")
       .sort({ createdAt: -1 });
     // console.log(inventory);
@@ -181,7 +186,9 @@ const getRecentInventoryController = async (req, res) => {
 // GET DONAR REOCRDS
 const getDonarsController = async (req, res) => {
   try {
+    // console.log(req.body);
     const organisation = req.body.userId;
+    // console.log(organisation);
     //find donars
     const donorId = await inventoryModel.distinct("donar", {
       organisation,

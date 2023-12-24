@@ -27,6 +27,7 @@ app.use("/api/v1/analytics", require("./routes/analyticsRoutes"));
 app.use("/api/v1/admin", require("./routes/adminRoutes"));
 
 app.use("/api/v1/gift", require("./routes/giftRoutes"));
+app.use("/api/v1/request", require("./routes/requestRoutes"));
 
 //port
 const PORT = process.env.PORT || 8080;

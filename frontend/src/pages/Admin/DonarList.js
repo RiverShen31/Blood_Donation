@@ -23,7 +23,7 @@ const DonarList = () => {
   }, []);
 
   //DELETE FUNCTION
-  const handelDelete = async (id) => {
+  const handleDelete = async (id) => {
     try {
       let answer = window.prompt(
         "Are You SUre Want To Delete This Donar",
@@ -60,7 +60,7 @@ const DonarList = () => {
               <td>
                 <button
                   className="btn btn-danger"
-                  onClick={() => handelDelete(record._id)}
+                  onClick={() => handleDelete(record._id)}
                 >
                   Delete
                 </button>

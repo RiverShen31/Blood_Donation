@@ -52,19 +52,22 @@ const Form = ({ formType, submitBtn, formTitle }) => {
               Donar
             </label>
           </div>
-          <div className="form-check ms-2">
-            <input
-              type="radio"
-              className="form-check-input"
-              name="role"
-              id="adminRadio"
-              value={"admin"}
-              onChange={(e) => setRole(e.target.value)}
-            />
-            <label htmlFor="adminRadio" className="form-check-label">
-              Admin
-            </label>
-          </div>
+          {formType === "login" && (
+            <div className="form-check ms-2">
+              <input
+                type="radio"
+                className="form-check-input"
+                name="role"
+                id="adminRadio"
+                value={"admin"}
+                onChange={(e) => setRole(e.target.value)}
+              />
+              <label htmlFor="adminRadio" className="form-check-label">
+                Admin
+              </label>
+            </div>
+          )}
+
           <div className="form-check ms-2">
             <input
               type="radio"

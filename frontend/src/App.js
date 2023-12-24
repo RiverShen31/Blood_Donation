@@ -17,6 +17,7 @@ import HospitalList from "./pages/Admin/HospitalList";
 import OrgList from "./pages/Admin/OrgList";
 import AdminHome from "./pages/Admin/AdminHome";
 import GiftList from "./pages/gift/Gift";
+import Request from "./pages/Request";
 function App() {
   return (
     <>
@@ -121,6 +122,22 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route 
+          path="/request"
+          element={
+            <ProtectedRoute>
+              <Request />
+            </ProtectedRoute>
+          }
+        />
+        {/* <Route 
+          path="/request/get-request-out"
+          element={
+            <ProtectedRoute>
+              <RequestOut />
+            </ProtectedRoute>
+          }
+        /> */}
         <Route
           path="/login"
           element={

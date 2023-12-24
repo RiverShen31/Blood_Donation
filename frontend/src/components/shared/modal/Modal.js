@@ -39,6 +39,7 @@ const Modal = () => {
         inventoryType,
         bloodGroup,
         quantity,
+        accepted: "process",
       });
       console.log(data);
       if (user?.role === "donar") {

@@ -39,6 +39,11 @@ const inventorySchema = new mongoose.Schema(
         return this.inventoryType === "in";
       },
     },
+    accepted: {
+      type: String,
+      required: [true, "accepted is require"],
+      enum: ["accept", "deny", "process"],
+    }
   },
   { timestamps: true }
 );

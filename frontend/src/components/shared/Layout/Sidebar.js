@@ -17,10 +17,10 @@ const Sidebar = () => {
           {user?.role === "organisation" && (
             <>
               <div
-                className={`menu-item ${location.pathname === "/" && "active"}`}
+                className={`menu-item ${location.pathname === "/request" && "active"}`}
               >
                 <i className="fa-solid fa-warehouse"></i>
-                <Link to="/">Inventory</Link>
+                <Link to="/request">Request In</Link>
               </div>
               <div
                 className={`menu-item ${

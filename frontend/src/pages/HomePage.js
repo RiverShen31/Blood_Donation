@@ -15,10 +15,18 @@ const HomePage = () => {
   //get function
   const getBloodRecords = async () => {
     try {
-      const { data } = await API.get("/inventory/get-inventory");
-      if (data?.success) {
-        setData(data?.inventory);
-        console.log(data);
+      if (user?.role === "donar") {
+        const { data } = await API.get("/inventory/get-inventory");
+        if (data?.success) {
+          setData(data?.inventory);
+          console.log(data);
+        }
+      } else if (user?.role === "hospital") {
+        const { data } = await API.get("/inventory/get-inventory-hospital");
+        if (data?.success) {
+          setData(data?.inventory);
+          console.log(data);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -27,10 +35,11 @@ const HomePage = () => {
 
   useEffect(() => {
     getBloodRecords();
-  }, []);
+  }, [user]);
   return (
     <Layout>
       {user?.role === "admin" && navigate("/admin")}
+      {user?.role === "organisation" && navigate("/request")}
       {error && <span>{alert(error)}</span>}
       {loading ? (
         <Spinner />
@@ -56,6 +65,7 @@ const HomePage = () => {
                   <th scope="col">Inventory Type</th>
                   <th scope="col">Quantity</th>
                   <th scope="col">Donar Email</th>
+                  <th scope="col">Accepted</th>
                   <th scope="col">Time & Date</th>
                 </tr>
               </thead>
@@ -66,6 +76,7 @@ const HomePage = () => {
                     <td>{record.inventoryType}</td>
                     <td>{record.quantity} (ML)</td>
                     <td>{record.email}</td>
+                    <td>{record.accepted}</td>
                     <td>
                       {moment(record.createdAt).format("DD/MM/YYYY hh:mm A")}
                     </td>

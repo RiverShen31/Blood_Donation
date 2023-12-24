@@ -82,8 +82,8 @@ const updateUserPointController = async (req, res) => {
   try {
     const {id} = req.params;
     const {point} = req.body;
-    console.log(req.params);
-    console.log(req.body);
+    // console.log(req.params);
+    // console.log(req.body);
     await userModel.findByIdAndUpdate(
         id,
         {point},
