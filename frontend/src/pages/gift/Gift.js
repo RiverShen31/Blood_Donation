@@ -1,15 +1,16 @@
-import TeddyImg from "../../assets/giftItem/teddy.png";
-import BagImg from "../../assets/giftItem/bag.jpg";
-import BowlSetImg from "../../assets/giftItem/bowl-set.jpg";
-import CactusImg from "../../assets/giftItem/cactus.png";
-import GlassesImg from "../../assets/giftItem/glasses.png";
-import HelmetImg from "../../assets/giftItem/helmet.png";
-import LaptopBagImg from "../../assets/giftItem/laptop-bag.jpeg";
-import ShampooImg from "../../assets/giftItem/shampoo.png";
-import SucculentImg from "../../assets/giftItem/succulent.png";
-import SuperTepidImg from "../../assets/giftItem/super-tepid.png";
-import TeaSetImg from "../../assets/giftItem/tea-set.png";
-import TeddyOctopusImg from "../../assets/giftItem/teddy-octopus.jpg";
+import teddybear from "../../assets/giftItem/teddybear.png";
+import bag from "../../assets/giftItem/bag.jpg";
+import bowlset from "../../assets/giftItem/bowlset.jpg";
+import cactus from "../../assets/giftItem/cactus.png";
+import glasses from "../../assets/giftItem/glasses.png";
+import helmet from "../../assets/giftItem/helmet.png";
+import laptopbag from "../../assets/giftItem/laptopbag.jpeg";
+import shampoo from "../../assets/giftItem/shampoo.png";
+import succulent from "../../assets/giftItem/succulent.png";
+import supertepid from "../../assets/giftItem/supertepid.png";
+import teaset from "../../assets/giftItem/teaset.png";
+import teddyoctopus from "../../assets/giftItem/teddyoctopus.jpg";
+import error from "../../assets/giftItem/error.png";
 import { useEffect, useState } from "react";
 import API from "../../services/API";
 import Layout from "../../components/shared/Layout/Layout";
@@ -18,18 +19,19 @@ import ModalGift from "./../../components/shared/modal/ModalGift";
 import { useNavigate } from "react-router-dom";
 
 const imgArray = [
-  BagImg,
-  BowlSetImg,
-  CactusImg,
-  GlassesImg,
-  HelmetImg,
-  LaptopBagImg,
-  ShampooImg,
-  SucculentImg,
-  SuperTepidImg,
-  TeaSetImg,
-  TeddyOctopusImg,
-  TeddyImg,
+  error,
+  bag,
+  bowlset,
+  cactus,
+  glasses,
+  helmet,
+  laptopbag,
+  shampoo,
+  succulent,
+  supertepid,
+  teaset,
+  teddyoctopus,
+  teddybear
 ];
 
 const GiftList = () => {
@@ -97,6 +99,15 @@ const GiftList = () => {
       console.log(error);
     }
   };
+
+  const findGiftImage = (giftName) => {
+    const formattedGiftName = giftName.toLowerCase().replace(/[_-]/g, "");
+    const index = imgArray.findIndex((img) => img.toLowerCase().includes(formattedGiftName));
+    if (index !== -1) {
+      return imgArray[index];
+    }
+    return imgArray[0];
+  }
   // useEffect(() => {
   //   console.log(user);
   // });
@@ -130,7 +141,7 @@ const GiftList = () => {
           {data?.map((record, index) => (
             <div className="col-md-4">
               <div className="card mb-4 box-shadow">
-                <img src={imgArray[index]} alt="" width="150px" />
+                <img src={findGiftImage(record.giftName)} alt="" width="150px" />
                 <div className="card-body">
                   <p className="card-text">Name: {record.giftName}</p>
                   <p className="card-text">Point: {record.point}</p>
