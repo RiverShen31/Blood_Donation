@@ -6,7 +6,7 @@ import API from "../../services/API";
 const OrgList = () => {
   const [data, setData] = useState([]);
   //find donar records
-  const getDonars = async () => {
+  const getOrgs = async () => {
     try {
       const { data } = await API.get("/admin/org-list");
       console.log(data);
@@ -19,7 +19,7 @@ const OrgList = () => {
   };
 
   useEffect(() => {
-    getDonars();
+    getOrgs();
   }, []);
 
   //DELETE FUNCTION

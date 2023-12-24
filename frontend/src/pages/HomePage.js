@@ -37,15 +37,18 @@ const HomePage = () => {
       ) : (
         <>
           <div className="container">
-            <h4
-              className="ms-4"
-              data-bs-toggle="modal"
-              data-bs-target="#staticBackdrop"
-              style={{ cursor: "pointer" }}
-            >
-              <i className="fa-solid fa-plus text-success py-4"></i>
-              Add Inventory
-            </h4>
+            {(user?.role === "donar" || user?.role === "hospital") && (
+              <h4
+                className="ms-4"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"
+                style={{ cursor: "pointer" }}
+              >
+                <i className="fa-solid fa-plus text-success py-4"></i>
+                Add Inventory
+              </h4>
+            )}
+
             <table className="table table-striped">
               <thead className="thead-dark">
                 <tr>

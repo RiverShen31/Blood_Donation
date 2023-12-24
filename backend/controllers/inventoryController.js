@@ -5,9 +5,12 @@ const userModel = require("../models/userModel");
 // CREATE INVENTORY
 const createInventoryController = async (req, res) => {
   try {
+    // console.log(req.body);
     const { email } = req.body;
+    // console.log(email);
     //validation
     const user = await userModel.findOne({ email });
+    // console.log(user);
     if (!user) {
       throw new Error("User Not Found");
     }
@@ -21,7 +24,10 @@ const createInventoryController = async (req, res) => {
     if (req.body.inventoryType == "out") {
       const requestedBloodGroup = req.body.bloodGroup;
       const requestedQuantityOfBlood = req.body.quantity;
-      const organisation = new mongoose.Types.ObjectId(req.body.userId);
+      // const organisation = new mongoose.Types.ObjectId(req.body.userId);
+      const {organisationName} = req.body;
+      const organisationObject = await userModel.findOne({organisationName});
+      const organisation = organisationObject._id;
       //calculate Blood Quanitity
       const totalInOfRequestedBlood = await inventoryModel.aggregate([
         {
@@ -74,6 +80,11 @@ const createInventoryController = async (req, res) => {
     }
 
     //save record
+    const {organisationName} = req.body;
+    // console.log(organisationName);
+    const organisationObject = await userModel.findOne({organisationName});
+    // console.log(organisationObject);
+    req.body.organisation = organisationObject._id;
     // console.log(req.body);
     const inventory = new inventoryModel(req.body);
     // console.log(inventory);
@@ -95,13 +106,13 @@ const createInventoryController = async (req, res) => {
 // GET ALL BLOOD RECORS
 const getInventoryController = async (req, res) => {
   try {
-    // console.log(req.body);
+    console.log(req.body.userId);
     const inventory = await inventoryModel
       .find({
-        organisation: req.body.userId,
+        hospital: req.body.userId,
       })
+      .populate("organisation")
       .populate("donar")
-      .populate("hospital")
       .sort({ createdAt: -1 });
     // console.log(inventory);
     return res.status(200).send({
@@ -268,6 +279,29 @@ const getOrgnaisationForHospitalController = async (req, res) => {
   }
 };
 
+//GET ORG LIST
+const getOrgListController = async (req, res) => {
+  try {
+    const orgData = await userModel
+      .find({ role: "organisation" })
+      .sort({ createdAt: -1 });
+
+    return res.status(200).send({
+      success: true,
+      Toatlcount: orgData.length,
+      message: "ORG List Fetched Successfully",
+      orgData,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Error In ORG List API",
+      error,
+    });
+  }
+};
+
 module.exports = {
   createInventoryController,
   getInventoryController,
@@ -277,4 +311,5 @@ module.exports = {
   getOrgnaisationForHospitalController,
   getInventoryHospitalController,
   getRecentInventoryController,
+  getOrgListController
 };
