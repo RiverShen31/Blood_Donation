@@ -103,10 +103,31 @@ const updateUserPointController = async (req, res) => {
   }
 };
 
+const GetUserToUpdatePointController = async (req, res) => {
+  try {
+    console.log(req.params.id);
+    const userData = await userModel.findById(req.params.id);
+    console.log(userData.point);
+    return res.status(200).send({
+      success: true,
+      message: "Get User from Id Succesfully",
+      userData,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Error while take user",
+      error,
+    })
+  }
+}
+
 module.exports = {
   GetGiftListController,
   createGiftController,
   deleteGiftController,
   updateGiftController,
   updateUserPointController,
+  GetUserToUpdatePointController,
 };

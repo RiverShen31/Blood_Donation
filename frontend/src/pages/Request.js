@@ -29,7 +29,7 @@ const Request = () => {
     }
   }
 
-  const handleAccept = async (id) => {
+  const handleAccept = async (id, donar) => {
     try {
       let answer = window.prompt(
         "Are you sure want to accept this request?",
@@ -40,10 +40,23 @@ const Request = () => {
       const {data} = await API.put(`request/update-request/${id}`,{
         accepted: "accept",
       })
-      console.log(data);
+      // const {data: data1} = await API.put(`gift/update-user-point/${donar}`,{
+      //   point: 50, 
+      // });
+      // console.log(data);
       if (data?.success) {
-        alert("Accepted Successfully");
-        window.location.reload();
+        const {data: userData} = await API.get(`gift/get-user/${donar}`);
+        if (userData?.success) {
+          console.log(userData.userData);
+          console.log(userData);
+          const {data: updateData} = await API.put(`gift/update-user-point/${donar}`,{
+            point: userData.userData.point + 50,
+          });
+          if (updateData?.success) {
+            alert("Accepted Successfully");
+            window.location.reload();
+          }
+        }
       }
     } catch (error) {
       console.log(error);
@@ -90,7 +103,7 @@ const Request = () => {
               <td>{moment(record.createdAt).format("DD/MM/YYYY hh:mm A")}</td>
               <td>
                 <div>
-                  <button className="btn btn-primary" style={{marginRight: "5px"}} onClick={() => handleAccept(record._id)}>Accept</button>
+                  <button className="btn btn-primary" style={{marginRight: "5px"}} onClick={() => handleAccept(record._id, record.donar)}>Accept</button>
                   <button className="btn btn-primary" onClick={() => handleDeny(record._id)}>Deny</button>
                 </div>
               </td>

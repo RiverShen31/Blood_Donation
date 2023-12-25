@@ -21,11 +21,8 @@ const GetRequestController = async (req, res) => {
 
 const UpdateRequestController = async(req, res) => {
     try {
-        console.log(req.body);
         const {id} = req.params;
         const {accepted} = req.body;
-        console.log(req.params);
-        console.log(req.body);
         await inventoryModel.findByIdAndUpdate(
             id,
             {accepted},
