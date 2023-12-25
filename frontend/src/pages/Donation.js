@@ -27,8 +27,8 @@ const Donation = () => {
   return (
     <Layout>
       <div className="container mt-4">
-        <table className="table">
-          <thead>
+        <table className="table table-striped">
+          <thead className="thead-dark">
             <tr>
               <th scope="col">Blood Group</th>
               <th scope="col">Inventory TYpe</th>

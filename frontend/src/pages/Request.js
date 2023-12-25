@@ -81,8 +81,7 @@ const Request = () => {
 
   return (
     <Layout>
-      <h1>Requset</h1>
-      <table className="table table-striped">
+      <table style={{marginTop: "20px"}} className="table table-striped">
         <thead className="thead-dark">
           <tr>
             <th scope="col">Blood Group</th>

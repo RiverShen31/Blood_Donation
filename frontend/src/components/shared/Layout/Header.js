@@ -1,7 +1,16 @@
 import React from "react";
-import { BiDonateBlood, BiUserCircle } from "react-icons/bi";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+
+import './dependencies/bootstrap/js/bootstrap.bundle.min';
+
+import './dependencies/fontawesome/css/all.css';
+import './dependencies/bootstrap/css/bootstrap.min.css';
+import './Navbar.css';
+
+import BloodtypeRoundedIcon from '@mui/icons-material/BloodtypeRounded';
+import Person2RoundedIcon from '@mui/icons-material/Person2Rounded';
+
 const Header = () => {
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -17,13 +26,14 @@ const Header = () => {
     <>
       <nav className="navbar navbar-dark bg-dark box-shadow">
         <div className="container d-flex justify-content-between">
-          <Link to="/" className="navbar-brand h1 ">
-            <BiDonateBlood color="red" /> Blood Bank App
+          <Link to="/" className="navbar-brand h1">
+            <span style={{color: "red"}}>
+            <BloodtypeRoundedIcon /> Blood Bank App</span>
           </Link>
           <ul className="navbar-nav flex-row">
             <li className="nav-item mx-3">
               <p className="nav-link">
-                <BiUserCircle /> Welcome{" "}
+                <Person2RoundedIcon /> Welcome{" "}
                 {user?.name || user?.hospitalName || user?.organisationName}
                 &nbsp;
                 <span className="badge bg-secondary">{user?.role}</span>
@@ -40,9 +50,9 @@ const Header = () => {
               </li>
             ) : (
               <li className="nav-item mx-3">
-                <Link to="/" className="nav-link">
-                  Home
-                </Link>
+                  <Link to="/" className="nav-link">
+                    Home
+                  </Link>
               </li>
             )}
             <li className="nav-item mx-3">

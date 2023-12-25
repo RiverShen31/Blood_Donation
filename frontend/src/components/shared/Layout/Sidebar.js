@@ -3,6 +3,8 @@ import React from "react";
 import { useLocation, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "../../../styles/Layout.css";
+import "./dependencies/fontawesome/css/all.css";
+
 
 const Sidebar = () => {
   //GET USER STATE
@@ -12,14 +14,14 @@ const Sidebar = () => {
 
   return (
     <div>
-      <div className="sidebar">
+      <div className="sidebar" style={{height: "auto"}}>
         <div className="menu">
           {user?.role === "organisation" && (
             <>
               <div
                 className={`menu-item ${location.pathname === "/request" && "active"}`}
               >
-                <i className="fa-solid fa-warehouse"></i>
+                <i className="fa-solid"></i>
                 <Link to="/request">Request In</Link>
               </div>
               <div
@@ -27,7 +29,7 @@ const Sidebar = () => {
                   location.pathname === "/donar" && "active"
                 }`}
               >
-                <i className="fa-solid fa-hand-holding-medical"></i>
+                <i className="fa-solid"></i>
                 <Link to="/donar">Donar</Link>
               </div>
               <div
@@ -35,11 +37,11 @@ const Sidebar = () => {
                   location.pathname === "/hospital" && "active"
                 }`}
               >
-                <i className="fa-solid fa-hospital"></i>
+                <i className="fa-solid"></i>
                 <Link to="/hospital">Hospital</Link>
               </div>
               <div className={`menu-item ${location.pathname === "/gift" && "active"}`}>
-                <i className="fa-solid fa-hospital"></i>
+                <i className="fa-solid"></i>
                 <Link to="/gift">Gift</Link>
               </div>
             </>
@@ -79,7 +81,7 @@ const Sidebar = () => {
                 location.pathname === "/orgnaisation" && "active"
               }`}
             >
-              <i className="fa-sharp fa-solid fa-building-ngo"></i>
+              <i className="fa-solid"></i>
               <Link to="/orgnaisation">Organisation</Link>
             </div>
           )}

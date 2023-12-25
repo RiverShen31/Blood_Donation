@@ -24,8 +24,8 @@ const Hospitals = () => {
 
   return (
     <Layout>
-      <table className="table ">
-        <thead>
+      <table className="table table-striped"  style={{marginTop: "20px"}}>
+        <thead className="thead-dark">
           <tr>
             <th scope="col">Name</th>
             <th scope="col">Email</th>

@@ -79,8 +79,8 @@ const Analytics = () => {
       </div>
       <div className="container my-3">
         <h1 className="my-3">Recent Blood Transactions</h1>
-        <table className="table ">
-          <thead>
+        <table className="table table-striped">
+          <thead className="thead-dark">
             <tr>
               <th scope="col">Blood Group</th>
               <th scope="col">Inventory Type</th>

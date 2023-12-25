@@ -118,7 +118,7 @@ const GiftList = () => {
 
   return (
     <Layout>
-      <h1>GIFT PAGE</h1>
+      <br></br>
       {user?.role === "donar" && (
         <div className="container">
           <p>Your point: {user?.point || 0}</p>

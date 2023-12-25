@@ -148,7 +148,7 @@ const Modal = () => {
                 onChange={(e) => setEmail(e.target.value)}
               /> */}
               <hr></hr>
-              <p>Organisation Name</p>
+              <label style={{marginBottom: "5px"}}>Organisation Name</label>
               <select
                 className="form-select"
                 aria-label="Default select example"
@@ -172,13 +172,28 @@ const Modal = () => {
                 value={organisationName}
                 onChange={(e) => setOrganisationName(e.target.value)}
               /> */}
-              <InputType
+              <br></br>
+              {/* <InputType
                 labelText={"Quanitity (ML)"}
                 labelFor={"quantity"}
                 inputType={"Number"}
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
-              />
+              /> */}
+              <p style={{marginBottom: "5px"}}>Quantity</p>
+              <select
+                className="form-select"
+                aria-label="Default select example"
+                onChange={(e) => setQuantity(e.target.value)}
+                value={quantity}
+              >
+                <option defaultValue={"Open this select menu"}>
+                  Open this select menu
+                </option>
+                <option value={"250"}>250</option>
+                <option value={"300"}>300</option>
+                <option value={"350"}>350</option>
+              </select>
             </div>
             <div className="modal-footer">
               <button

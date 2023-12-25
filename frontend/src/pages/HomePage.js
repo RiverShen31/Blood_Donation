@@ -53,7 +53,7 @@ const HomePage = () => {
                 data-bs-target="#staticBackdrop"
                 style={{ cursor: "pointer" }}
               >
-                <i className="fa-solid fa-plus text-success py-4"></i>
+                <i className="fa-solid"></i>
                 Add Inventory
               </h4>
             )}
