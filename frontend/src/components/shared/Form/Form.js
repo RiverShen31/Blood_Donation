@@ -3,6 +3,13 @@ import InputType from "./InputType";
 import { Link } from "react-router-dom";
 import { handleLogin, handleRegister } from "../../../services/authService";
 
+import "./dependencies/fonts/font-awesome-4.7.0/css/font-awesome.min.css";
+import "./dependencies/vendor/animate/animate.css";
+import "./dependencies/vendor/css-hamburgers/hamburgers.min.css";
+import "./dependencies/vendor/select2/select2.min.css";
+import "./dependencies/css/util.css";
+import "./dependencies/css/main.css";
+
 const Form = ({ formType, submitBtn, formTitle }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,6 +23,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
   return (
     <div>
       <form
+        className="login100-form validate-form"
         onSubmit={(e) => {
           if (formType === "login")
             return handleLogin(e, email, password, role);
@@ -35,8 +43,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
             );
         }}
       >
-        <h1 className="text-center">{formTitle}</h1>
-        <hr />
+        <span className="login100-form-title">{formTitle}</span>
         <div className="d-flex mb-3">
           <div className="form-check">
             <input
@@ -102,22 +109,41 @@ const Form = ({ formType, submitBtn, formTitle }) => {
             case formType === "login": {
               return (
                 <>
-                  <InputType
-                    labelText={"email"}
-                    labelFor={"forEmail"}
-                    inputType={"email"}
-                    name={"email"}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <InputType
-                    labelText={"Password"}
-                    labelFor={"forPassword"}
-                    inputType={"password"}
-                    name={"password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
+                  <div
+                    className="wrap-input100 validate-input"
+                    data-validate="Valid email is required: ex@abc.xyz"
+                  >
+                    <InputType
+                      labelText={"email"}
+                      labelFor={"forEmail"}
+                      inputType={"email"}
+                      name={"email"}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <span className="focus-input100"></span>
+                    <span className="symbol-input100">
+                      <i className="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
+                  </div>
+
+                  <div
+                    className="wrap-input100 validate-input"
+                    data-validate="Password is required"
+                  >
+                    <InputType
+                      labelText={"Password"}
+                      labelFor={"forPassword"}
+                      inputType={"password"}
+                      name={"password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <span className="focus-input100"></span>
+                    <span className="symbol-input100">
+                      <i className="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                  </div>
                 </>
               );
             }
@@ -125,97 +151,179 @@ const Form = ({ formType, submitBtn, formTitle }) => {
               return (
                 <>
                   {(role === "admin" || role === "donar") && (
-                    <InputType
-                      labelText={"Name"}
-                      labelFor={"forName"}
-                      inputType={"text"}
-                      name={"name"}
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                    />
+                    <div>
+                      <div
+                        className="wrap-input100 validate-input"
+                        data-validate="Valid email is required: ex@abc.xyz"
+                      >
+                        <InputType
+                          labelText={"Name"}
+                          labelFor={"forName"}
+                          inputType={"text"}
+                          name={"name"}
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                        />
+                        <span className="focus-input100"></span>
+                        <span className="symbol-input100">
+                          <i className="fa fa-male" aria-hidden="true"></i>
+                        </span>
+                      </div>
+                    </div>
                   )}
                   {role === "organisation" && (
-                    <InputType
-                      labelText={"Organisation Name"}
-                      labelFor={"fororganisationName"}
-                      inputType={"text"}
-                      name={"organisationName"}
-                      value={organisationName}
-                      onChange={(e) => setOrganisationName(e.target.value)}
-                    />
+                    <div
+                      className="wrap-input100 validate-input"
+                      data-validate="Password is required"
+                    >
+                      <InputType
+                        labelText={"Organisation Name"}
+                        labelFor={"fororganisationName"}
+                        inputType={"text"}
+                        name={"organisationName"}
+                        value={organisationName}
+                        onChange={(e) => setOrganisationName(e.target.value)}
+                      />
+                      <span className="focus-input100"></span>
+                      <span className="symbol-input100">
+                        <i className="fa fa-building-o" aria-hidden="true"></i>
+                      </span>
+                    </div>
                   )}
                   {role === "hospital" && (
-                    <InputType
-                      labelText={"Hospital Name"}
-                      labelFor={"forHospitalName"}
-                      inputType={"text"}
-                      name={"hospitalName"}
-                      value={hospitalName}
-                      onChange={(e) => setHospitalName(e.target.value)}
-                    />
+                    <div
+                      className="wrap-input100 validate-input"
+                      data-validate="Password is required"
+                    >
+                      <InputType
+                        labelText={"Hospital Name"}
+                        labelFor={"forHospitalName"}
+                        inputType={"text"}
+                        name={"hospitalName"}
+                        value={hospitalName}
+                        onChange={(e) => setHospitalName(e.target.value)}
+                      />
+                      <span className="focus-input100"></span>
+                      <span className="symbol-input100">
+                        <i className="fa fa-hospital-o" aria-hidden="true"></i>
+                      </span>
+                    </div>
                   )}
+                  <div
+                    className="wrap-input100 validate-input"
+                    data-validate="Valid email is required: ex@abc.xyz"
+                  >
+                    <InputType
+                      labelText={"email"}
+                      labelFor={"forEmail"}
+                      inputType={"email"}
+                      name={"email"}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <span className="focus-input100"></span>
+                    <span className="symbol-input100">
+                      <i className="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                  <div
+                    className="wrap-input100 validate-input"
+                    data-validate="Password is required"
+                  >
+                    <InputType
+                      labelText={"Password"}
+                      labelFor={"forPassword"}
+                      inputType={"password"}
+                      name={"password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <span className="focus-input100"></span>
+                    <span className="symbol-input100">
+                      <i className="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                  <div
+                    className="wrap-input100 validate-input"
+                    data-validate="Password is required"
+                  >
+                    <InputType
+                      labelText={"website"}
+                      labelFor={"forWebsite"}
+                      inputType={"text"}
+                      name={"website"}
+                      value={website}
+                      onChange={(e) => setWebsite(e.target.value)}
+                    />
+                    <span className="focus-input100"></span>
+                    <span className="symbol-input100">
+                      <i className="fa fa-weibo" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                  <div
+                    className="wrap-input100 validate-input"
+                    data-validate="Password is required"
+                  >
+                    <InputType
+                      labelText={"Address"}
+                      labelFor={"forAddress"}
+                      inputType={"text"}
+                      name={"address"}
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                    />
+                    <span className="focus-input100"></span>
+                    <span className="symbol-input100">
+                      <i className="fa fa-address-card" aria-hidden="true"></i>
+                    </span>
+                  </div>
 
-                  <InputType
-                    labelText={"email"}
-                    labelFor={"forEmail"}
-                    inputType={"email"}
-                    name={"email"}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <InputType
-                    labelText={"Password"}
-                    labelFor={"forPassword"}
-                    inputType={"password"}
-                    name={"password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <InputType
-                    labelText={"website"}
-                    labelFor={"forWebsite"}
-                    inputType={"text"}
-                    name={"website"}
-                    value={website}
-                    onChange={(e) => setWebsite(e.target.value)}
-                  />
-                  <InputType
-                    labelText={"Address"}
-                    labelFor={"forAddress"}
-                    inputType={"text"}
-                    name={"address"}
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                  />
-                  <InputType
-                    labelText={"Phone"}
-                    labelFor={"forPhone"}
-                    inputType={"text"}
-                    name={"phone"}
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                  />
+                  <div
+                    className="wrap-input100 validate-input"
+                    data-validate="Password is required"
+                  >
+                    <InputType
+                      labelText={"Phone"}
+                      labelFor={"forPhone"}
+                      inputType={"text"}
+                      name={"phone"}
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                    <span className="focus-input100"></span>
+                    <span className="symbol-input100">
+                      <i className="fa fa-phone" aria-hidden="true"></i>
+                    </span>
+                  </div>
                 </>
               );
             }
           }
         })()}
+        <div>
+          <div className="container-login100-form-btn">
+            <button className="login100-form-btn">{submitBtn}</button>
+          </div>
+        </div>
 
-        <div className="d-flex flex-row justify-content-between">
+        <div className="text-center p-t-50">
           {formType === "login" ? (
-            <p>
-              Not registerd yet ? Register
-              <Link to="/register"> Here !</Link>
-            </p>
+            <Link to="/register" className="txt2">
+              Create your Account
+              <i
+                className="fa fa-arrow-circle-right m-l-5"
+                aria-hidden="true"
+              ></i>
+            </Link>
           ) : (
-            <p>
-              ALready Usser Please
-              <Link to="/login"> Login !</Link>
-            </p>
+            <Link to="/login" className="txt2">
+              Already have an account?
+              <i
+                className="fa fa-arrow-circle-right m-l-5"
+                aria-hidden="true"
+              ></i>
+            </Link>
           )}
-          <button className="btn btn-primary" type="submit">
-            {submitBtn}
-          </button>
         </div>
       </form>
     </div>

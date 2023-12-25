@@ -10,14 +10,16 @@ const InputType = ({
 }) => {
   return (
     <>
-      <div className="mb-1">
-        <label htmlFor={labelFor} className="form-label">
+      {/* <div className="mb-1"> */}
+      <div>
+        {/* <label htmlFor={labelFor} className="form-label">
           {labelText}
-        </label>
+        </label> */}
         <input
           type={inputType}
-          className="form-control"
+          className="form-control input100"
           name={name}
+          placeholder={name}
           value={value}
           onChange={onChange}
         />
