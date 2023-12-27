@@ -40,8 +40,8 @@ const HospitalList = () => {
 
   return (
     <Layout>
-      <table className="table ">
-        <thead>
+      <table className="table table-striped mt-4">
+        <thead className="thead-dark">
           <tr>
             <th scope="col">Name</th>
             <th scope="col">Email</th>

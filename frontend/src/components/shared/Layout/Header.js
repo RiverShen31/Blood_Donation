@@ -2,12 +2,6 @@ import React from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import './dependencies/bootstrap/js/bootstrap.bundle.min';
-
-import './dependencies/fontawesome/css/all.css';
-import './dependencies/bootstrap/css/bootstrap.min.css';
-import './Navbar.css';
-
 import BloodtypeRoundedIcon from '@mui/icons-material/BloodtypeRounded';
 import Person2RoundedIcon from '@mui/icons-material/Person2Rounded';
 
