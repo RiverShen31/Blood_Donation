@@ -1,18 +1,18 @@
 const mongoose = require("mongoose");
 const inventoryModel = require("../models/inventoryModel");
-
-const GetRequestController = async (req, res) => {
+//request hiến máu
+const GetRequestController = async(req, res) => {
     try {
-        const requestData = await inventoryModel.find({accepted: "process"});
+        const requestData = await inventoryModel.find({ accepted: "process" });
         return res.status(200).send({
-            success:true,
-            message:"Request process Fetched Successfully",
+            success: true,
+            message: "Request process Fetched Successfully",
             requestData,
         });
     } catch (error) {
         console.log(error);
         return res.status(500).send({
-            success:false,
+            success: false,
             message: "Error in Get Request In Data",
             error
         });
@@ -21,12 +21,10 @@ const GetRequestController = async (req, res) => {
 
 const UpdateRequestController = async(req, res) => {
     try {
-        const {id} = req.params;
-        const {accepted} = req.body;
+        const { id } = req.params;
+        const { accepted } = req.body;
         await inventoryModel.findByIdAndUpdate(
-            id,
-            {accepted},
-            {new: true}
+            id, { accepted }, { new: true }
         );
         return res.status(200).send({
             success: true,
@@ -35,7 +33,7 @@ const UpdateRequestController = async(req, res) => {
     } catch (error) {
         console.log(error);
         return res.status(500).send({
-            success:false,
+            success: false,
             message: "Error in Update Request",
             error
         });
