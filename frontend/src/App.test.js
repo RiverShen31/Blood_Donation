@@ -1,3 +1,4 @@
+// Import các hàm render và screen từ thư viện testing-library/react
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
