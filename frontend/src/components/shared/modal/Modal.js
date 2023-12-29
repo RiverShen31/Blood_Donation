@@ -3,6 +3,42 @@ import { useSelector } from "react-redux";
 import InputType from "./../Form/InputType";
 import API from "./../../../services/API";
 
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Radio from "@mui/material/Radio";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import RadioGroup from "@mui/material/RadioGroup";
+
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 600,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
 const Modal = () => {
   const [data, setData] = useState([]);
 
@@ -78,141 +114,182 @@ const Modal = () => {
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="staticBackdropLabel">
-                Manage Blood Record
-              </h1>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              />
-            </div>
-            <div className="modal-body">
-              <div className="d-flex mb-3">
-                Blood Type: &nbsp;
-                {user?.role === "donar" && (
-                  <div className="form-check ms-3">
-                    <input
-                      type="radio"
-                      name="inRadio"
-                      value={"in"}
-                      onChange={(e) => setInventoryType(e.target.value)}
-                      className="form-check-input"
-                    />
-                    <label htmlFor="in" className="form-check-label">
-                      IN
-                    </label>
-                  </div>
-                )}
-                {user?.role === "hospital" && (
-                  <div className="form-check ms-3">
-                    <input
-                      type="radio"
-                      name="inRadio"
-                      value={"out"}
-                      onChange={(e) => setInventoryType(e.target.value)}
-                      className="form-check-input"
-                    />
-                    <label htmlFor="out" className="form-check-label">
-                      OUT
-                    </label>
-                  </div>
-                )}
-              </div>
-              <select
-                className="form-select"
-                aria-label="Default select example"
-                onChange={(e) => setBloodGroup(e.target.value)}
-              >
-                <option defaultValue={"Open this select menu"}>
-                  Open this select menu
-                </option>
-                <option value={"O+"}>O+</option>
-                <option value={"O-"}>O-</option>
-                <option value={"AB+"}>AB+</option>
-                <option value={"AB-"}>AB-</option>
-                <option value={"A+"}>A+</option>
-                <option value={"A-"}>A-</option>
-                <option value={"B+"}>B+</option>
-                <option value={"B-"}>B-</option>
-              </select>
-              {/* <InputType
-                labelText={"Donar Email"}
-                labelFor={"donarEmail"}
-                inputType={"email"}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              /> */}
-              <hr></hr>
-              <label style={{marginBottom: "5px"}}>Organisation Name</label>
-              <select
-                className="form-select"
-                aria-label="Default select example"
-                value={organisationName}
-                onChange={(e) => setOrganisationName(e.target.value)}
-              >
-                <option defaultValue={"Open this select menu"}>
-                  Open this select menu
-                </option>
-                {data?.map((record) => (
-                  <option key={record._id} value={record.organisationName}>
-                    {record.organisationName}
-                  </option>
-                ))}
-              </select>
+        <Box sx={style}>
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <Typography
+                  id="transition-modal-title staticBackdropLabel"
+                  variant="h6"
+                  component="h2"
+                >
+                  Manage Blood Record
+                </Typography>
 
-              {/* <InputType 
-                labelText={"Organisation Name"}
-                labelFor={"organisationName"}
-                inputType={"text"}
-                value={organisationName}
-                onChange={(e) => setOrganisationName(e.target.value)}
-              /> */}
-              <br></br>
-              {/* <InputType
-                labelText={"Quanitity (ML)"}
-                labelFor={"quantity"}
-                inputType={"Number"}
-                value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
-              /> */}
-              <p style={{marginBottom: "5px"}}>Quantity</p>
-              <select
-                className="form-select"
-                aria-label="Default select example"
-                onChange={(e) => setQuantity(e.target.value)}
-                value={quantity}
-              >
-                <option defaultValue={"Open this select menu"}>
-                  Open this select menu
-                </option>
-                <option value={"250"}>250</option>
-                <option value={"300"}>300</option>
-                <option value={"350"}>350</option>
-              </select>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={handleModalSubmit}
-              >
-                Submit
-              </button>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                />
+              </div>
+              <div className="modal-body">
+                <div className="d-flex mb-3">
+                  {user?.role === "donar" && (
+                    <div className="form-check">
+                      <div>
+                        <FormControl>
+                          <FormLabel id="demo-row-radio-buttons-group-label">
+                            Request
+                          </FormLabel>
+                          <RadioGroup
+                            row
+                            aria-labelledby="demo-row-radio-buttons-group-label"
+                            name="row-radio-buttons-group"
+                          >
+                            <FormControlLabel
+                              value="in"
+                              control={<Radio />}
+                              label="IN"
+                              onChange={(e) => setInventoryType(e.target.value)}
+                              checked
+                            />
+                            <FormControlLabel
+                              value="out"
+                              control={<Radio disabled />}
+                              label="OUT"
+                            />
+                          </RadioGroup>
+                        </FormControl>
+                      </div>
+                    </div>
+                  )}
+                  {user?.role === "hospital" && (
+                    <div className="form-check">
+                      <div>
+                        <FormControl>
+                          <FormLabel id="demo-row-radio-buttons-group-label">
+                            Request
+                          </FormLabel>
+                          <RadioGroup
+                            row
+                            aria-labelledby="demo-row-radio-buttons-group-label"
+                            name="row-radio-buttons-group"
+                          >
+                            <FormControlLabel
+                              value="in"
+                              control={<Radio disabled />}
+                              label="IN"
+                            />
+                            <FormControlLabel
+                              value="out"
+                              control={<Radio />}
+                              label="OUT"
+                              onChange={(e) => setInventoryType(e.target.value)}
+                              checked
+                            />
+                          </RadioGroup>
+                        </FormControl>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Blood Group
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={bloodGroup}
+                    label="Blood Group"
+                    onChange={(e) => setBloodGroup(e.target.value)}
+                  >
+                    <MenuItem value={"O+"}>O+</MenuItem>
+                    <MenuItem value={"O-"}>O-</MenuItem>
+                    <MenuItem value={"AB+"}>AB+</MenuItem>
+                    <MenuItem value={"AB-"}>AB-</MenuItem>
+                    <MenuItem value={"A+"}>A+</MenuItem>
+                    <MenuItem value={"A-"}>A-</MenuItem>
+                    <MenuItem value={"B+"}>B+</MenuItem>
+                    <MenuItem value={"B-"}>B-</MenuItem>
+                  </Select>
+                </FormControl>
+                {/* <label style={{ marginBottom: "5px" }}>Organisation Name</label>
+                <select
+                  className="form-select"
+                  aria-label="Default select example"
+                  value={organisationName}
+                  onChange={(e) => setOrganisationName(e.target.value)}
+                >
+                  <option defaultValue={"Open this select menu"}>
+                    Open this select menu
+                  </option>
+                  {data?.map((record) => (
+                    <option key={record._id} value={record.organisationName}>
+                      {record.organisationName}
+                    </option>
+                  ))}
+                </select> */}
+                <br></br>
+                <hr></hr>
+
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Organisation Name
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={organisationName}
+                    label="Organisation Name"
+                    onChange={(e) => setOrganisationName(e.target.value)}
+                  >
+                    {data?.map((record) => (
+                      <MenuItem key={record._id} value={record.organisationName}>{record.organisationName}</MenuItem>
+                    ))}
+                    
+                  </Select>
+                </FormControl>
+                <br></br>
+                <hr></hr>
+
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Quantity
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={quantity}
+                    label="Quantity"
+                    onChange={(e) => setQuantity(e.target.value)}
+                  >
+                    <MenuItem value={"250"}>250</MenuItem>
+                    <MenuItem value={"300"}>300</MenuItem>
+                    <MenuItem value={"350"}>350</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={handleModalSubmit}
+                >
+                  Submit
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </Box>
       </div>
     </>
   );

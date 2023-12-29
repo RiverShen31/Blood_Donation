@@ -11,9 +11,10 @@ import RedeemIcon from "@mui/icons-material/Redeem";
 import RequestPageIcon from "@mui/icons-material/RequestPage";
 import MedicationIcon from "@mui/icons-material/Medication";
 import MedicationLiquidIcon from "@mui/icons-material/MedicationLiquid";
-import PersonIcon from '@mui/icons-material/Person';
+import PersonIcon from "@mui/icons-material/Person";
 // import ListSubheader from '@mui/material/ListSubheader';
-import AssignmentIcon from '@mui/icons-material/Assignment';
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import HomeIcon from "@mui/icons-material/Home";
 
 const Sidebar = () => {
   //GET USER STATE
@@ -24,6 +25,14 @@ const Sidebar = () => {
     <>
       <div>
         <React.Fragment>
+          <ListItemButton>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <Link to="/">
+              <ListItemText primary="Home" />
+            </Link>
+          </ListItemButton>
           {user?.role === "organisation" && (
             <>
               <ListItemButton>
@@ -31,7 +40,7 @@ const Sidebar = () => {
                   <RequestPageIcon />
                 </ListItemIcon>
                 <Link to="/request">
-                  <ListItemText primary="Request In" />
+                  <ListItemText primary="Request" />
                 </Link>
               </ListItemButton>
 
@@ -154,7 +163,7 @@ export const secondaryListItems = (
         <AssignmentIcon />
       </ListItemIcon>
       <Link to="/analytics">
-      <ListItemText primary="Analytics" />
+        <ListItemText primary="Analytics" />
       </Link>
     </ListItemButton>
     {/* <ListItemButton>

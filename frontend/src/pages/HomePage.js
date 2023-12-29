@@ -6,6 +6,7 @@ import Layout from "../components/shared/Layout/Layout";
 import Modal from "../components/shared/modal/Modal";
 import API from "../services/API";
 import moment from "moment";
+import { Button } from "@mui/material";
 
 const HomePage = () => {
   const { loading, error, user } = useSelector((state) => state.auth);
@@ -47,15 +48,14 @@ const HomePage = () => {
         <>
           <div className="container">
             {(user?.role === "donar" || user?.role === "hospital") && (
-              <h4
+              <Button
                 className="ms-4"
                 data-bs-toggle="modal"
                 data-bs-target="#staticBackdrop"
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer", fontSize: "20px" }}
               >
-                <i className="fa-solid"></i>
                 Add Inventory
-              </h4>
+              </Button>
             )}
 
             <table className="table table-striped">
