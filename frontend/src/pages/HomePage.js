@@ -37,7 +37,7 @@ const HomePage = () => {
     getBloodRecords();
   }, [user]);
   return (
-    <Layout>
+    <Layout>//sửa giao diện ở đây
       {user?.role === "admin" && navigate("/admin")}
       {user?.role === "organisation" && navigate("/request")}
       {error && <span>{alert(error)}</span>}
