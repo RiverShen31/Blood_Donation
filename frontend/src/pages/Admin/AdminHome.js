@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 
 const AdminHome = () => {
   const { user } = useSelector((state) => state.auth);
-  return (
-    <Layout>
+  return (// giao dien home
+    <Layout> 
       <div className="container">
         <div className="d-felx flex-column mt-4">
           <h1>
