@@ -8,8 +8,10 @@ const {
   getOrgnaisationController,
   getOrgnaisationForHospitalController,
   getInventoryHospitalController,
-  getRecentInventoryController,
+  getRecentInventoryHospitalController,
   getOrgListController,
+  getRecentInventoryDonarController,
+  getRecentInventoryOrganisationController,
 } = require("../controllers/inventoryController");
 
 const router = express.Router();
@@ -22,10 +24,12 @@ router.post("/create-inventory", authMiddelware, createInventoryController);
 router.get("/get-inventory", authMiddelware, getInventoryController);
 //GET RECENT BLOOD RECORDS
 router.get(
-  "/get-recent-inventory",
+  "/get-recent-inventory-hospital",
   authMiddelware,
-  getRecentInventoryController
+  getRecentInventoryHospitalController
 );
+router.get("/get-recent-inventory-user", authMiddelware, getRecentInventoryDonarController);
+router.get("/get-recent-inventory-organisation", authMiddelware, getRecentInventoryOrganisationController);
 
 //GET HOSPITAL BLOOD RECORDS
 router.get(

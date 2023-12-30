@@ -2,6 +2,20 @@ import React, { useEffect, useState } from "react";
 import InputType from "../Form/InputType";
 import API from "../../../services/API";
 import { useNavigate } from "react-router-dom";
+import TextField from '@mui/material/TextField';
+import Box from "@mui/material/Box";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 600,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const ModalGift = ({ record }) => {
   const navigate = useNavigate();
@@ -87,6 +101,7 @@ const ModalGift = ({ record }) => {
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
+        <Box sx={style}>
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -101,27 +116,16 @@ const ModalGift = ({ record }) => {
               />
             </div>
             <div className="modal-body">
-              <InputType
-                labelText={"Gift Name"}
-                labelFor={"giftName"}
-                inputType={"text"}
-                value={giftName}
-                onChange={(e) => setGiftName(e.target.value)}
-              />
-              <InputType
-                labelText={"Gift Point"}
-                labelFor={"giftPoint"}
-                inputType={"Number"}
-                value={point}
-                onChange={(e) => setPoint(e.target.value)}
-              />
-              <InputType
-                labelText={"Remain"}
-                labelFor={"remain"}
-                inputType={"Number"}
-                value={remain}
-                onChange={(e) => setRemain(e.target.value)}
-              />
+              <TextField fullWidth label="Gift Name" id="giftName" value={giftName}
+                onChange={(e) => setGiftName(e.target.value)}/>
+              <div></div>
+              <br></br>
+              <TextField type="Number" fullWidth label="Gift Point" id="giftPoint" value={point}
+                onChange={(e) => setPoint(e.target.value)}/>
+              <div></div>
+              <br></br>
+              <TextField type="Number" fullWidth label="Remain" id="remain" value={remain}
+                onChange={(e) => setRemain(e.target.value)}/>
             </div>
             <div className="modal-footer">
               <button
@@ -141,6 +145,7 @@ const ModalGift = ({ record }) => {
             </div>
           </div>
         </div>
+        </Box>
       </div>
     </>
   );

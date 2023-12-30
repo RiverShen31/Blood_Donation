@@ -11,12 +11,19 @@ import supertepid from "../../assets/giftItem/supertepid.png";
 import teaset from "../../assets/giftItem/teaset.png";
 import teddyoctopus from "../../assets/giftItem/teddyoctopus.jpg";
 import error from "../../assets/giftItem/error.png";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import API from "../../services/API";
 import Layout from "../../components/shared/Layout/Layout";
 import { useSelector } from "react-redux";
 import ModalGift from "./../../components/shared/modal/ModalGift";
 import { useNavigate } from "react-router-dom";
+
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const imgArray = [
   error,
@@ -35,6 +42,16 @@ const imgArray = [
 ];
 
 const GiftList = () => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const [data, setData] = useState([]);
@@ -174,6 +191,32 @@ const GiftList = () => {
                         >
                           Delete
                         </button>
+                      
+                      {/* <Button variant="outlined" onClick={handleClickOpen}>
+                        Delete
+                      </Button>
+                      <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                      >
+                        <DialogTitle id="alert-dialog-title">
+                          {"Use Google's location service?"}
+                        </DialogTitle>
+                        <DialogContent>
+                          <DialogContentText id="alert-dialog-description">
+                            Let Google help apps determine location. This means sending anonymous
+                            location data to Google, even when no apps are running.
+                          </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={handleClose}>Disagree</Button>
+                          <Button onClick={handleClose} autoFocus>
+                            Agree
+                          </Button>
+                        </DialogActions>
+                      </Dialog> */}
                       </div>
                     </div>
                   </div>

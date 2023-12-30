@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import InputType from "./../Form/InputType";
 import API from "./../../../services/API";
 
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -26,17 +24,6 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
-};
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
 };
 
 const Modal = () => {
@@ -152,7 +139,6 @@ const Modal = () => {
                               control={<Radio />}
                               label="IN"
                               onChange={(e) => setInventoryType(e.target.value)}
-                              checked
                             />
                             <FormControlLabel
                               value="out"
@@ -186,7 +172,6 @@ const Modal = () => {
                               control={<Radio />}
                               label="OUT"
                               onChange={(e) => setInventoryType(e.target.value)}
-                              checked
                             />
                           </RadioGroup>
                         </FormControl>
