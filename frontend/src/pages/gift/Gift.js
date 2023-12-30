@@ -18,12 +18,11 @@ import { useSelector } from "react-redux";
 import ModalGift from "./../../components/shared/modal/ModalGift";
 import { useNavigate } from "react-router-dom";
 
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import "./index.css";
+import { AnimatePresence } from "framer-motion";
+import Listing from "./Listing";
+import Overlay from "./Overlay";
+import Item from "./Item";
 
 const imgArray = [
   error,
@@ -38,77 +37,49 @@ const imgArray = [
   supertepid,
   teaset,
   teddyoctopus,
-  teddybear
+  teddybear,
 ];
 
 const GiftList = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(null);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const openItem = (index) => {
+    setOpen(index);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const closeItem = () => {
+    setOpen(null);
   };
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const [data, setData] = useState([]);
 
-  const [selectedRecord, setSelectedRecord] = useState(null);
-  const handleUpdate = (record) => {
-    setSelectedRecord(record);
-  };
+  // const [selectedRecord, setSelectedRecord] = useState(null);
+  // const handleUpdate = (record) => {
+  //   setSelectedRecord(record);
+  // };
 
-  const handleDelete = async (id) => {
-    try {
-      let answer = window.prompt(
-        "Are you sure want to delete this gift",
-        "sure"
-      );
-      if (!answer) return;
-      const { data } = await API.delete(`/gift/delete-gift/${id}`);
-      alert(data?.message);
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const ReceivedGift = async (record) => {
-    console.log(record);
-    console.log(user.point);
-    if (user?.point < record.point) {
-      alert("You do not have enough point");
-      return;
-    }
-    if (record.remain < 1) {
-      alert("This gifts is out of stock");
-      return;
-    }
-    const {data} = await API.put(`gift/update-gift/${record._id}`,{
-      giftName: record.giftName,
-      point: record.point,
-      remain: record.remain-1
-    });
-    console.log(data);
-    const {data: data1} = await API.put(`gift/update-user-point/${user._id}`,{
-      point: user.point - record.point
-    });
-    console.log(data1);
-    if (data?.success) {
-      alert("Received Successfully");
-      navigate("/gift");
-      window.location.reload();
-    }
-  }
+  // const handleDelete = async (id) => {
+  //   try {
+  //     let answer = window.prompt(
+  //       "Are you sure want to delete this gift",
+  //       "sure"
+  //     );
+  //     if (!answer) return;
+  //     const { data } = await API.delete(`/gift/delete-gift/${id}`);
+  //     alert(data?.message);
+  //     window.location.reload();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   // find gift data
   const getGifts = async () => {
     try {
       const { data } = await API.get("/gift/gift-list");
-      // console.log(data);
+      console.log(data);
       if (data?.success) {
         setData(data?.giftData);
       }
@@ -117,17 +88,17 @@ const GiftList = () => {
     }
   };
 
-  const findGiftImage = (giftName) => {
-    const formattedGiftName = giftName.toLowerCase().replace(/[_-]/g, "");
-    const index = imgArray.findIndex((img) => img.toLowerCase().includes(formattedGiftName));
-    if (index !== -1) {
-      return imgArray[index];
-    }
-    return imgArray[0];
-  }
-  // useEffect(() => {
-  //   console.log(user);
-  // });
+  // const findGiftImage = (giftName) => {
+  //   const formattedGiftName = giftName.toLowerCase().replace(/[_-]/g, "");
+  //   const index = imgArray.findIndex((img) =>
+  //     img.toLowerCase().includes(formattedGiftName)
+  //   );
+  //   if (index !== -1) {
+  //     return imgArray[index];
+  //   }
+  //   return imgArray[0];
+  // };
+  
 
   useEffect(() => {
     getGifts();
@@ -142,23 +113,27 @@ const GiftList = () => {
         </div>
       )}
       {user?.role === "organisation" && (
-        <div className="col-md-3">
-        <button
-          className="btn btn-primary mb-4"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
-          style={{ cursor: "pointer" }}
-        >
-          Add Gift
-        </button>
+        <div className="divButton">
+          <button
+            className="mb-4 button-89"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+            style={{ cursor: "pointer" }}
+          >
+            Add Gift
+          </button>
         </div>
       )}
       <div className="container">
-        <div className="row">
-          {data?.map((record, index) => (
+        {/* <div className="row">
+          {data?.map((record) => (
             <div className="col-md-4">
               <div className="card mb-4 box-shadow">
-                <img src={findGiftImage(record.giftName)} alt="" width="150px" />
+                <img
+                  src={findGiftImage(record.giftName)}
+                  alt=""
+                  width="150px"
+                />
                 <div className="card-body">
                   <p className="card-text">Name: {record.giftName}</p>
                   <p className="card-text">Point: {record.point}</p>
@@ -175,7 +150,8 @@ const GiftList = () => {
                           style={{ cursor: "pointer" }}
                         >
                           <button
-                            onClick={() => handleUpdate(record)}s
+                            onClick={() => handleUpdate(record)}
+                            s
                             type="button"
                             className="btn btn-primary"
                           >
@@ -191,50 +167,33 @@ const GiftList = () => {
                         >
                           Delete
                         </button>
-                      
-                      {/* <Button variant="outlined" onClick={handleClickOpen}>
-                        Delete
-                      </Button>
-                      <Dialog
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                      >
-                        <DialogTitle id="alert-dialog-title">
-                          {"Use Google's location service?"}
-                        </DialogTitle>
-                        <DialogContent>
-                          <DialogContentText id="alert-dialog-description">
-                            Let Google help apps determine location. This means sending anonymous
-                            location data to Google, even when no apps are running.
-                          </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                          <Button onClick={handleClose}>Disagree</Button>
-                          <Button onClick={handleClose} autoFocus>
-                            Agree
-                          </Button>
-                        </DialogActions>
-                      </Dialog> */}
                       </div>
                     </div>
                   </div>
                 )}
-                {user?.role === "donar" && (
-                    <div>
-                        <button type="button" className="btn btn-primary" onClick={() => ReceivedGift(record)}>
-                            Choose
-                        </button>
-                    </div>
-                )}
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
-      <ModalGift  record={selectedRecord}/>
-      {/* <ModalGift /> */}
+      <div className="properties">
+        {data?.map((record, index) => (
+          <div key={index}>
+            <Listing data={record} open={() => openItem(index)}/>
+            <AnimatePresence>
+              {open === index && (<>
+                <Overlay close={closeItem}>
+                  {/* <h1>{record.giftName}</h1> */}
+                  <Item giftData={record} close={closeItem} isOpen={open === index}/>
+                </Overlay>
+                </>
+              )}
+            </AnimatePresence>
+          </div>
+        ))}
+      </div>
+      {/* <ModalGift record={selectedRecord} /> */}
+      <ModalGift />
     </Layout>
   );
 };

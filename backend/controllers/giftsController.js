@@ -107,6 +107,7 @@ const GetUserToUpdatePointController = async (req, res) => {
   try {
     console.log(req.params.id);
     const userData = await userModel.findById(req.params.id);
+    console.log(userData);
     console.log(userData.point);
     return res.status(200).send({
       success: true,
