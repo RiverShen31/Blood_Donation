@@ -8,31 +8,23 @@ import Typography from "@mui/material/Typography";
 import { BarChart } from "@mui/x-charts/BarChart";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Container from '@mui/material/Container';
-
-import { ResponsiveChartContainer } from '@mui/x-charts/ResponsiveChartContainer';
-import { LinePlot } from '@mui/x-charts/LineChart';
-import { BarPlot } from '@mui/x-charts/BarChart';
-import { ChartsXAxis } from '@mui/x-charts/ChartsXAxis';
-import { ChartsYAxis } from '@mui/x-charts/ChartsYAxis';
-import { axisClasses } from '@mui/x-charts/ChartsAxis';
-import Box from '@mui/material/Box';
+import Container from "@mui/material/Container";
 
 const Analytics = () => {
   const [data, setData] = useState([]);
   const [inventoryData, setInventoryData] = useState([]);
 
   const { user } = useSelector((state) => state.auth);
-  const colors = [
-    "#884A39",
-    "#C38154",
-    "#FFC26F",
-    "#4F709C",
-    "#4942E4",
-    "#0079FF",
-    "#FF0060",
-    "#22A699",
-  ];
+  // const colors = [
+  //   "#884A39",
+  //   "#C38154",
+  //   "#FFC26F",
+  //   "#4F709C",
+  //   "#4942E4",
+  //   "#0079FF",
+  //   "#FF0060",
+  //   "#22A699",
+  // ];
   //GET BLOOD GROUP DATA
   const getBloodGroupData = async () => {
     try {
@@ -54,24 +46,17 @@ const Analytics = () => {
   //get function
   const getBloodRecords = async () => {
     try {
+      let endpoint = "";
       if (user?.role === "hospital") {
-        const { data } = await API.get(
-          "/inventory/get-recent-inventory-hospital"
-        );
-        if (data?.success) {
-          setInventoryData(data?.inventory);
-          console.log(data);
-        }
+        endpoint = "/inventory/get-recent-inventory-hospital";
       } else if (user?.role === "donar") {
-        const { data } = await API.get("/inventory/get-recent-inventory-user");
-        if (data?.success) {
-          setInventoryData(data?.inventory);
-          console.log(data);
-        }
+        endpoint = "/inventory/get-recent-inventory-user";
       } else if (user?.role === "organisation") {
-        const { data } = await API.get(
-          "/inventory/get-recent-inventory-organisation"
-        );
+        endpoint = "/inventory/get-recent-inventory-organisation";
+      }
+
+      if (endpoint) {
+        const { data } = await API.get(endpoint);
         if (data?.success) {
           setInventoryData(data?.inventory);
           console.log(data);
@@ -89,102 +74,110 @@ const Analytics = () => {
     <>
       {/* <Header /> */}
       <Layout>
-        {user?.role === "organisation" && (
+        {user?.role === "organisation" && data.length > 0 && (
           <>
             <div>
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={6}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 600,
-                  }}
-                >
-                  <Typography
-                    component="h2"
-                    variant="h6"
-                    color="primary"
-                    gutterBottom
-                  >
-                    Total In
-                  </Typography>
-                  <BarChart
-                    series={[{ data: data?.map((record) => record.totalIn) }]}
-                    xAxis={[
-                      {
-                        scaleType: "band",
-                        data: data?.map((record) => record.bloodGroup),
-                      },
-                    ]}
-                    height={550}
-                    width={550}
-                    leftAxis={null}
-                  />
-                </Paper>
-              </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={6}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 600,
-                  }}
-                >
-                  <Typography
-                    component="h2"
-                    variant="h6"
-                    color="primary"
-                    gutterBottom
-                  >
-                    Total Out
-                  </Typography>
-                  <BarChart
-                    series={[{ data: data?.map((record) => record.totalOut) }]}
-                    xAxis={[
-                      {
-                        scaleType: "band",
-                        data: data?.map((record) => record.bloodGroup),
-                      },
-                    ]}
-                    height={550}
-                    width={550}
-                    leftAxis={null}
-                  />
-                </Paper>
-              </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <Typography
-                    component="h2"
-                    variant="h6"
-                    color="primary"
-                    gutterBottom
-                  >
-                    Availabe Blood
-                  </Typography>
-                  <BarChart
-                    series={[{ data: data?.map((record) => record.availabeBlood) }]}
-                    xAxis={[
-                      {
-                        scaleType: "band",
-                        data: data?.map((record) => record.bloodGroup),
-                      },
-                    ]}
-                    height={550}
-                    width={550}
-                    leftAxis={null}
-                  />
-                </Paper>
-              </Grid>
-            </Grid>
-          </Container>
+              <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                <Grid container spacing={3}>
+                  {/* Chart */}
+                  <Grid item xs={12} md={8} lg={6}>
+                    <Paper
+                      sx={{
+                        p: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        height: 600,
+                      }}
+                    >
+                      <Typography
+                        component="h2"
+                        variant="h6"
+                        color="primary"
+                        gutterBottom
+                      >
+                        Total In
+                      </Typography>
+                      <BarChart
+                        series={[
+                          { data: data.map((record) => record.totalIn) },
+                        ]}
+                        xAxis={[
+                          {
+                            scaleType: "band",
+                            data: data.map((record) => record.bloodGroup),
+                          },
+                        ]}
+                        height={550}
+                        width={550}
+                        leftAxis={null}
+                      />
+                    </Paper>
+                  </Grid>
+                  {/* Recent Deposits */}
+                  <Grid item xs={12} md={4} lg={6}>
+                    <Paper
+                      sx={{
+                        p: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        height: 600,
+                      }}
+                    >
+                      <Typography
+                        component="h2"
+                        variant="h6"
+                        color="primary"
+                        gutterBottom
+                      >
+                        Total Out
+                      </Typography>
+                      <BarChart
+                        series={[
+                          { data: data.map((record) => record.totalOut) },
+                        ]}
+                        xAxis={[
+                          {
+                            scaleType: "band",
+                            data: data.map((record) => record.bloodGroup),
+                          },
+                        ]}
+                        height={550}
+                        width={550}
+                        leftAxis={null}
+                      />
+                    </Paper>
+                  </Grid>
+                  {/* Recent Orders */}
+                  <Grid item xs={12}>
+                    <Paper
+                      sx={{ p: 2, display: "flex", flexDirection: "column" }}
+                    >
+                      <Typography
+                        component="h2"
+                        variant="h6"
+                        color="primary"
+                        gutterBottom
+                      >
+                        Availabe Blood
+                      </Typography>
+                      <BarChart
+                        series={[
+                          { data: data.map((record) => record.availabeBlood) },
+                        ]}
+                        xAxis={[
+                          {
+                            scaleType: "band",
+                            data: data.map((record) => record.bloodGroup),
+                          },
+                        ]}
+                        height={550}
+                        width={550}
+                        leftAxis={null}
+                      />
+                    </Paper>
+                  </Grid>
+                </Grid>
+              </Container>
             </div>
           </>
         )}

@@ -16,6 +16,7 @@ const bloodGroupDetailsContoller = async (req, res) => {
             $match: {
               bloodGroup: bloodGroup,
               inventoryType: "in",
+              accepted: "accept",
               organisation,
             },
           },
@@ -32,6 +33,7 @@ const bloodGroupDetailsContoller = async (req, res) => {
             $match: {
               bloodGroup: bloodGroup,
               inventoryType: "out",
+              accepted: "accept",
               organisation,
             },
           },
