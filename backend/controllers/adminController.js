@@ -1,11 +1,13 @@
 const userModel = require("../models/userModel");
-
+// Import the userModel module from the "../models" directory.
 //GET DONAR LIST
 const getDonarsListController = async (req, res) => {
+  // Define an asynchronous function called getDonarsListController, taking request (req) and response (res) as parameters.
   try {
     const donarData = await userModel
       .find({ role: "donar" })
       .sort({ createdAt: -1 });
+    // Use userModel to find all users with the role "donar" and sort the results by createdAt in descending order.
 
     return res.status(200).send({
       success: true,
@@ -13,6 +15,9 @@ const getDonarsListController = async (req, res) => {
       message: "Donar List Fetched Successfully",
       donarData,
     });
+
+    // If successful, send a JSON response with success status, total count of donors, success message, and donor data.
+
   } catch (error) {
     console.log(error);
     return res.status(500).send({
@@ -20,6 +25,7 @@ const getDonarsListController = async (req, res) => {
       message: "Error In DOnar List API",
       error,
     });
+    // If an error occurs, log the error, and send a JSON response with failure status, error message, and error object.
   }
 };
 //GET HOSPITAL LIST
@@ -28,7 +34,7 @@ const getHospitalListController = async (req, res) => {
     const hospitalData = await userModel
       .find({ role: "hospital" })
       .sort({ createdAt: -1 });
-
+    // Similar structure as the previous function, but fetches users with the role "hospital".
     return res.status(200).send({
       success: true,
       Toatlcount: hospitalData.length,
@@ -50,6 +56,7 @@ const getOrgListController = async (req, res) => {
     const orgData = await userModel
       .find({ role: "organisation" })
       .sort({ createdAt: -1 });
+      // Similar structure as the previous functions, but fetches users with the role "organisation".
 
     return res.status(200).send({
       success: true,
@@ -72,6 +79,7 @@ const getOrgListController = async (req, res) => {
 const deleteDonarController = async (req, res) => {
   try {
     await userModel.findByIdAndDelete(req.params.id);
+    // Use userModel to find and delete a user by ID.
     return res.status(200).send({
       success: true,
       message: " Record Deleted successfully",
@@ -93,3 +101,5 @@ module.exports = {
   getOrgListController,
   deleteDonarController,
 };
+
+// Export the defined controller functions for use in other parts of the application.
