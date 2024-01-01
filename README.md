@@ -1,3 +1,4 @@
+#hướng dẫn chạy project
 1. clone project về folder
 2. cd backend rồi npm i
 3. cd frontend rồi npm i

@@ -25,8 +25,8 @@ const createInventoryController = async (req, res) => {
       const requestedBloodGroup = req.body.bloodGroup;
       const requestedQuantityOfBlood = req.body.quantity;
       // const organisation = new mongoose.Types.ObjectId(req.body.userId);
-      const {organisationName} = req.body;
-      const organisationObject = await userModel.findOne({organisationName});
+      const { organisationName } = req.body;
+      const organisationObject = await userModel.findOne({ organisationName });
       const organisation = organisationObject._id;
       //calculate Blood Quanitity
       const totalInOfRequestedBlood = await inventoryModel.aggregate([
@@ -82,9 +82,9 @@ const createInventoryController = async (req, res) => {
     }
 
     //save record
-    const {organisationName} = req.body;
+    const { organisationName } = req.body;
     // console.log(organisationName);
-    const organisationObject = await userModel.findOne({organisationName});
+    const organisationObject = await userModel.findOne({ organisationName });
     // console.log(organisationObject);
     req.body.organisation = organisationObject._id;
     // console.log(req.body);
@@ -100,6 +100,49 @@ const createInventoryController = async (req, res) => {
     return res.status(500).send({
       success: false,
       message: "Errro In Create Inventory API",
+      error,
+    });
+  }
+};
+
+const getHospitalInventoryController = async(req, res) => {
+  try {
+    console.log(req.params.id);
+    const inventory = await inventoryModel
+      .find({hospital: req.params.id})
+      .sort({createdAt: -1});
+      return res.status(200).send({
+        success: true,
+        message: "get all records successfully",
+        inventory,
+      });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Error In Get Hospital Inventory",
+      error,
+    });
+  }
+}
+
+const getDonarInventoryController = async (req, res) => {
+  try {
+    console.log(req.params.id);
+    const inventory = await inventoryModel
+      .find({ donar: req.params.id })
+      .sort({ createdAt: -1 });
+    // console.log(inventory);
+    return res.status(200).send({
+      success: true,
+      message: "get all records successfully",
+      inventory,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Error In Get Donar Inventory",
       error,
     });
   }
@@ -134,10 +177,11 @@ const getInventoryController = async (req, res) => {
 // GET Hospital BLOOD RECORS
 const getInventoryHospitalController = async (req, res) => {
   try {
+    console.log(req.body.userId);
     const inventory = await inventoryModel
       // .find(req.body.filters)
       .find({
-        hospital: req.body.userId
+        hospital: req.body.userId,
       })
       .populate("donar")
       // .populate("hospital")
@@ -160,17 +204,62 @@ const getInventoryHospitalController = async (req, res) => {
 };
 
 // GET BLOOD RECORD OF 3
-const getRecentInventoryController = async (req, res) => {
+const getRecentInventoryOrganisationController = async (req, res) => {
+  try {
+    // console.log(req.body);
+    const inventory = await inventoryModel
+      .find({ organisation: req.body.userId })
+      .limit(3)
+      .sort({ createdAt: -1 });
+    console.log(inventory);
+    return res.status(200).send({
+      success: true,
+      message: "Recent Inventory Data",
+      inventory,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Error In Recent Inventory API",
+      error,
+    });
+  }
+};
+
+const getRecentInventoryDonarController = async (req, res) => {
   try {
     const inventory = await inventoryModel
+      .find({ donar: req.body.userId })
+      .limit(3)
+      .sort({ createdAt: -1 });
+    return res.status(200).send({
+      success: true,
+      message: "Recent Inventory Data",
+      inventory,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Error In Recent Inventory API",
+      error,
+    });
+  }
+};
+
+const getRecentInventoryHospitalController = async (req, res) => {
+  try {
+    // console.log(req.body);
+    const inventory = await inventoryModel
       .find({
-        organisation: req.body.userId,
+        hospital: req.body.userId,
       })
       .limit(3)
       .sort({ createdAt: -1 });
     return res.status(200).send({
       success: true,
-      message: "recent Invenotry Data",
+      message: "recent Inventory Data",
       inventory,
     });
   } catch (error) {
@@ -312,11 +401,15 @@ const getOrgListController = async (req, res) => {
 module.exports = {
   createInventoryController,
   getInventoryController,
+  getDonarInventoryController,
+  getHospitalInventoryController,
   getDonarsController,
   getHospitalController,
   getOrgnaisationController,
   getOrgnaisationForHospitalController,
   getInventoryHospitalController,
-  getRecentInventoryController,
-  getOrgListController
+  getRecentInventoryHospitalController,
+  getRecentInventoryDonarController,
+  getRecentInventoryOrganisationController,
+  getOrgListController,
 };
