@@ -6,6 +6,7 @@ import API from "../../services/API";
 const DonarList = () => {
   const [data, setData] = useState([]);
   //find donar records
+  // Hàm lấy danh sách người quyên máu từ API
   const getDonars = async () => {
     try {
       const { data } = await API.get("/admin/donar-list");
@@ -17,21 +18,25 @@ const DonarList = () => {
       console.log(error);
     }
   };
-
+  // Sử dụng useEffect để gọi hàm getDonars khi component được render
   useEffect(() => {
     getDonars();
   }, []);
 
   //DELETE FUNCTION
+  // Hàm xử lý xóa bản ghi người quyên máu
   const handleDelete = async (id) => {
     try {
+      // Hiển thị prompt để xác nhận xóa
       let answer = window.prompt(
         "Are You SUre Want To Delete This Donar",
         "Sure"
       );
       if (!answer) return;
+      // Gọi API để xóa người quyên máu với id tương ứng
       const { data } = await API.delete(`/admin/delete-donar/${id}`);
       alert(data?.message);
+      // Reload trang sau khi xóa
       window.location.reload();
     } catch (error) {
       console.log(error);
