@@ -11,7 +11,7 @@ const Request = () => {
   const handleDeny = async (id) => {
     try {
       let answer = window.prompt(
-        "Are you sure want to accept this request?",
+        "Are you sure want to deny this request?",
         "Sure"
       );
       if (!answer) return;
