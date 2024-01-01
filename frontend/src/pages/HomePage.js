@@ -60,7 +60,7 @@ const HomePage = () => {
 
             <table className="table table-striped">
               <thead className="thead-dark">
-                <tr>
+                <tr style={{textAlign: "center"}}>
                   <th scope="col">Blood Group</th>
                   <th scope="col">Inventory Type</th>
                   <th scope="col">Quantity</th>
@@ -71,12 +71,12 @@ const HomePage = () => {
               </thead>
               <tbody>
                 {data?.map((record) => (
-                  <tr key={record._id}>
+                  <tr key={record._id} style={{textAlign: "center", color: record.accepted === "process" ? "red" : record.accepted === "deny" ? "blue" : record.accepted === "accept" ? "green" : "inherit"}}>
                     <td>{record.bloodGroup}</td>
-                    <td>{record.inventoryType}</td>
+                    <td>{record.inventoryType.toUpperCase()}</td>
                     <td>{record.quantity} (ML)</td>
                     <td>{record.email}</td>
-                    <td>{record.accepted}</td>
+                    <td>{record.accepted.toUpperCase()}</td>
                     <td>
                       {moment(record.createdAt).format("DD/MM/YYYY hh:mm A")}
                     </td>

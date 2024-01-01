@@ -120,7 +120,9 @@ const Request = () => {
         </thead>
         <tbody>
           {data?.map((record) => (
-            <tr key={record._id}>
+            <tr key={record._id} style={{
+              color: record.inventoryType === "out" ? "blue" : "green",
+            }}>
               <td>{record.bloodGroup}</td>
               <td>{record.inventoryType}</td>
               <td>{record.quantity} (ML)</td>

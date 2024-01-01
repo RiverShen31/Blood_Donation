@@ -64,7 +64,7 @@ const Listing = ({ data, open }) => {
         <div className="listing__row"></div>
         <div className="listing__details">
           <div className="listing__row">
-            <span className="listing__price">{giftName}</span>
+            <span className="listing__price">{giftName.toUpperCase()}</span>
           </div>
 
           <div className="listing__row">
