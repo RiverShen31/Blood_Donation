@@ -22,3 +22,5 @@ router.put("/update-gift/:id", authMiddleware, updateGiftController);
 router.put("/update-user-point/:id", authMiddleware, updateUserPointController);
 
 module.exports = router;
+
+// test gift routers
