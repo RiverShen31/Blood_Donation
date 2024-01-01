@@ -1,76 +1,21 @@
-import React, { useEffect, useState } from "react";
-import Layout from "../../components/shared/Layout/Layout";
-import moment from "moment";
-import API from "../../services/API";
 
-const OrgList = () => {
-  const [data, setData] = useState([]);
-  //find donar records
-  const getOrgs = async () => {
-    try {
-      const { data } = await API.get("/admin/org-list");
-      console.log(data);
-      if (data?.success) {
-        setData(data?.orgData);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  useEffect(() => {
-    getOrgs();
-  }, []);
 
-  //DELETE FUNCTION
-  const handelDelete = async (id) => {
-    try {
-      let answer = window.prompt(
-        "Are You SUre Want To Delete This Organisation",
-        "Sure"
-      );
-      if (!answer) return;
-      const { data } = await API.delete(`/admin/delete-donar/${id}`);
-      alert(data?.message);
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  return (
-    <Layout>
-      <table className="table table-striped mt-4">
-        <thead className="thead-dark">
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Date</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data?.map((record) => (
-            <tr key={record._id}>
-              <td>{record.organisationName}</td>
-              <td>{record.email}</td>
-              <td>{record.phone}</td>
-              <td>{moment(record.createdAt).format("DD/MM/YYYY hh:mm A")}</td>
-              <td>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => handelDelete(record._id)}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </Layout>
-  );
-};
+/*useState:
 
-export default OrgList;
+const [data, setData] = useState([]);: Sử dụng Hook useState để tạo một state data với giá trị khởi tạo là một mảng rỗng.
+useEffect:
+
+useEffect(() => { getOrgs(); }, []);: Sử dụng Hook useEffect để gọi hàm getOrgs khi component được render lần đầu tiên. Hàm này sẽ gọi API để lấy danh sách tổ chức từ server và cập nhật state data.
+getOrgs:
+
+const getOrgs = async () => { ... }: Hàm này thực hiện việc gọi API (/admin/org-list) để lấy danh sách tổ chức từ server. Kết quả trả về được lưu vào state data.
+handleDelete:
+
+const handleDelete = async (id) => { ... }: Hàm này thực hiện xóa một tổ chức dựa trên id. Trước khi xóa, nó hiển thị một prompt để xác nhận từ người dùng. Sau khi xóa, nó thông báo kết quả và tải lại trang để cập nhật hiển thị.
+Render:
+
+Trong phần render, component này trả về một đối tượng JSX:
+Hiển thị một bảng (<table>) với các cột là thông tin của tổ chức.
+Sử dụng dữ liệu trong state data để map và hiển thị thông tin từng tổ chức trong các dòng của bảng.*/
