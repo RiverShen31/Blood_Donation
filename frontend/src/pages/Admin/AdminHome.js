@@ -1,11 +1,11 @@
 import React from "react";
 import Layout from "../../components/shared/Layout/Layout";
 import { useSelector } from "react-redux";
-
+// admin
 const AdminHome = () => {
   const { user } = useSelector((state) => state.auth);
-  return (
-    <Layout>
+  return (// giao dien home
+    <Layout> 
       <div className="container">
         <div className="d-felx flex-column mt-4">
           <h1>
