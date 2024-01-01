@@ -1,9 +1,55 @@
+import teddybear from "../../../assets/giftItem/teddybear.png";
+import bag from "../../../assets/giftItem/bag.jpg";
+import bowlset from "../../../assets/giftItem/bowlset.jpg";
+import cactus from "../../../assets/giftItem/cactus.png";
+import glasses from "../../../assets/giftItem/glasses.png";
+import helmet from "../../../assets/giftItem/helmet.png";
+import laptopbag from "../../../assets/giftItem/laptopbag.jpeg";
+import shampoo from "../../../assets/giftItem/shampoo.png";
+import succulent from "../../../assets/giftItem/succulent.png";
+import supertepid from "../../../assets/giftItem/supertepid.png";
+import teaset from "../../../assets/giftItem/teaset.png";
+import teddyoctopus from "../../../assets/giftItem/teddyoctopus.jpg";
+import error from "../../../assets/giftItem/error.png";
+
 import React, { useEffect, useState } from "react";
 import InputType from "../Form/InputType";
 import API from "../../../services/API";
 import { useNavigate } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Box from "@mui/material/Box";
+
+const imgArray = [
+  error,
+  bag,
+  bowlset,
+  cactus,
+  glasses,
+  helmet,
+  laptopbag,
+  shampoo,
+  succulent,
+  supertepid,
+  teaset,
+  teddyoctopus,
+  teddybear,
+];
+
+const giftNameArray = [
+  error,
+  bag,
+  bowlset,
+  cactus,
+  glasses,
+  helmet,
+  laptopbag,
+  shampoo,
+  succulent,
+  supertepid,
+  teaset,
+  teddyoctopus,
+  teddybear,
+]
 
 const style = {
   position: "absolute",
@@ -37,6 +83,19 @@ const ModalGift = ({ record }) => {
       if (!giftName || !point || !remain) {
         return alert("Please Provide All Fields");
       }
+
+      if (point <= 0 || remain <= 0) {
+        return alert("Point and remain must be positive values");
+      }
+
+      const isGiftNameExists = giftNameArray.some(
+        (item) => item.includes(giftName.toLowerCase())
+      );
+
+      if (isGiftNameExists) {
+        return alert("Gift Name already Exists");
+      }
+
 
       if (record) {
         // update existing record

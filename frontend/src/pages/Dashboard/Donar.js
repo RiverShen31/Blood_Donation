@@ -4,6 +4,7 @@ import API from "../../services/API";
 import moment from "moment";
 import { Box, Button, Modal, Typography } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { useSelector } from "react-redux";
 const style = {
   position: "absolute",
   top: "50%",
@@ -17,6 +18,7 @@ const style = {
 };
 
 const Donar = () => {
+  const { user } = useSelector((state) => state.auth);
   const [donarInventory, setDonarInventory] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [selectedRecord, setSelectedRecord] = React.useState(null);
@@ -50,7 +52,7 @@ const Donar = () => {
 
   const getDonarInventory = async (recordId) => {
     try {
-      // console.log(recordId);
+      console.log(user._id);
       const {data} = await API.get(`/inventory/get-donar-inventories/${recordId}`);
       console.log(data);
       if (data?.success) {
