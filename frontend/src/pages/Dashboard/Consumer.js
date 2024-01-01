@@ -69,7 +69,7 @@ const Consumer = () => {
                 <td>{record.bloodGroup}</td>
                 <td>{record.inventoryType.toUpperCase()}</td>
                 <td>{record.quantity}</td>
-                <td>{record.accepted}</td>
+                <td>{record.accepted.toUpperCase()}</td>
                 <td><Button onClick={() => handleOpen(record)}>
                   <MoreHorizIcon style={{ cursor: "pointer" }} />
                 </Button></td>
