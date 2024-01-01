@@ -76,3 +76,4 @@ const bloodGroupDetailsContoller = async (req, res) => {
 };
 
 module.exports = { bloodGroupDetailsContoller };
+////////////////////////////////////////////////////////////////
