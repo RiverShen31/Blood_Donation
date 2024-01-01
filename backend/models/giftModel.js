@@ -18,3 +18,6 @@ const giftSchema = new mongoose.Schema(
   { timestamps: true }
 );
 module.exports = mongoose.model("Gift", giftSchema);
+
+// model gift
+// 3 parameters

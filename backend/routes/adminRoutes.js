@@ -41,3 +41,5 @@ router.delete(
 
 //EXPORT
 module.exports = router;
+
+// test admin router

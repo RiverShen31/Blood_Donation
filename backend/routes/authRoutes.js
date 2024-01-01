@@ -19,3 +19,5 @@ router.post("/login", loginController);
 router.get("/current-user", authMiddelware, currentUserController);
 
 module.exports = router;
+
+// test auth router

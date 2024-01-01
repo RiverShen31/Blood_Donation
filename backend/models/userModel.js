@@ -63,3 +63,7 @@ const userSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model("users", userSchema);
+
+// model user
+// 10 parameters
+// create model user
