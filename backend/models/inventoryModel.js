@@ -49,3 +49,7 @@ const inventorySchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model("Inventory", inventorySchema);
+
+// model inventory
+// 8 parameters
+// create inventory
