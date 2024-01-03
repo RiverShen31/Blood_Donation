@@ -20,6 +20,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
   const [website, setWebsite] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
+  const [bloodGroup, setBloodGroup] = useState("");
   return (
     <div>
       <form
@@ -39,6 +40,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
               address,
               hospitalName,
               website,
+              bloodGroup,
               0
             );
         }}
@@ -164,10 +166,15 @@ const Form = ({ formType, submitBtn, formTitle }) => {
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                         />
-                        <span className="focus-input100"></span>
-                        <span className="symbol-input100">
-                          <i className="fa fa-male" aria-hidden="true"></i>
-                        </span>
+                        <br></br>
+                        <InputType
+                          labelText={"Blood Group"}
+                          labelFor={"forBloodGroup"}
+                          inputType={"text"}
+                          name={"bloodGroup"}
+                          value={bloodGroup}
+                          onChange={(e) => setBloodGroup(e.target.value)}
+                        />
                       </div>
                     </div>
                   )}

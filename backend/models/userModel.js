@@ -34,6 +34,16 @@ const userSchema = new mongoose.Schema(
         return false;
       },
     },
+    bloodGroup: {
+      type: String,
+      required: function () {
+        if (this.role === "donar") {
+          return true;
+        }
+        return false;
+      },
+      enum: ["O+", "O-", "AB+", "AB-", "A+", "A-", "B+", "B-"],
+    },
     email: {
       type: String,
       required: [true, "email is required"],

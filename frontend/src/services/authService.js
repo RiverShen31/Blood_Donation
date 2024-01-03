@@ -29,6 +29,7 @@ export const handleRegister = (
   address,
   hospitalName,
   website,
+  bloodGroup,
   point
 ) => {
   // Prevent the default form submission behavior
@@ -46,6 +47,7 @@ export const handleRegister = (
         address,
         hospitalName,
         website,
+        bloodGroup,
         point
       })
     );
