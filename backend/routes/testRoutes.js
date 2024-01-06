@@ -9,9 +9,4 @@ router.get("/", testController);
 
 //export
 module.exports = router;
-<<<<<<< HEAD
-
-//test Blood_Donation
-=======
 //LOS RATONES
->>>>>>> origin/Hoang

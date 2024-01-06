@@ -73,10 +73,10 @@ const HomePage = () => {
                 {data?.map((record) => (
                   <tr key={record._id} style={{textAlign: "center", color: record.accepted === "process" ? "red" : record.accepted === "deny" ? "blue" : record.accepted === "accept" ? "green" : "inherit"}}>
                     <td>{record.bloodGroup}</td>
-                    <td>{record.inventoryType.toUpperCase()}</td>
+                    <td>{record.inventoryType ? record.inventoryType.toUpperCase() : ""}</td>
                     <td>{record.quantity} (ML)</td>
                     <td>{record.email}</td>
-                    <td>{record.accepted.toUpperCase()}</td>
+                    <td>{record.accepted ? record.accepted.toUpperCase() : ""}</td>
                     <td>
                       {moment(record.createdAt).format("DD/MM/YYYY hh:mm A")}
                     </td>
