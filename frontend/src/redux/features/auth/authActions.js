@@ -38,6 +38,7 @@ export const userRegister = createAsyncThunk(
       address,
       hospitalName,
       website,
+      bloodGroup,
       point
     },
     { rejectWithValue }
@@ -53,6 +54,7 @@ export const userRegister = createAsyncThunk(
         address,
         hospitalName,
         website,
+        bloodGroup,
         point
       });
       if (data?.success) {

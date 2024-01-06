@@ -28,13 +28,14 @@ const style = {
 
 const Modal = () => {
   const [data, setData] = useState([]);
+  const { user } = useSelector((state) => state.auth);
+
 
   const [inventoryType, setInventoryType] = useState("in");
-  const [bloodGroup, setBloodGroup] = useState("");
+  const [bloodGroup, setBloodGroup] = useState(user?.bloodGroup || "");
   const [quantity, setQuantity] = useState(0);
   // const [email, setEmail] = useState("");
   const [organisationName, setOrganisationName] = useState("");
-  const { user } = useSelector((state) => state.auth);
 
   // get org lists
   const getOrgs = async () => {
@@ -60,7 +61,7 @@ const Modal = () => {
         email: user?.email,
         organisationName,
         inventoryType,
-        bloodGroup,
+        bloodGroup: user.bloodGroup,
         quantity,
         accepted: "process",
       });
@@ -87,7 +88,7 @@ const Modal = () => {
 
   useEffect(() => {
     getOrgs();
-  }, []);
+  }, [user]);
 
   return (
     <>
@@ -188,7 +189,15 @@ const Modal = () => {
                     id="demo-simple-select"
                     value={bloodGroup}
                     label="Blood Group"
-                    onChange={(e) => setBloodGroup(e.target.value)}
+                    // onChange={(e) => setBloodGroup(e.target.value)}
+                    onChange={(e) => {
+                      const selectedBloodGroup = user.bloodGroup;
+                      if (!["O+", "O-", "AB+", "AB-", "A+", "A-", "B+", "B-"].includes(selectedBloodGroup)) {
+                        alert("Invalid Blood Group");
+                      } else {
+                        setBloodGroup(selectedBloodGroup);
+                      }
+                    }}
                   >
                     <MenuItem value={"O+"}>O+</MenuItem>
                     <MenuItem value={"O-"}>O-</MenuItem>

@@ -7,6 +7,4 @@ const router = express.Router();
 //routes xdd
 router.get("/", testController);
 
-//export
 module.exports = router;
-//LOS RATONES

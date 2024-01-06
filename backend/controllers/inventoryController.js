@@ -109,7 +109,7 @@ const getHospitalInventoryController = async(req, res) => {
   try {
     console.log(req.params.id);
     const inventory = await inventoryModel
-      .find({hospital: req.params.id})
+      .find({hospital: req.params.id, organisation: req.body.userId})
       .sort({createdAt: -1});
       return res.status(200).send({
         success: true,
@@ -128,9 +128,10 @@ const getHospitalInventoryController = async(req, res) => {
 
 const getDonarInventoryController = async (req, res) => {
   try {
-    console.log(req.params.id);
+    // console.log(req.body.userId);
+    // console.log(req.params.id);
     const inventory = await inventoryModel
-      .find({ donar: req.params.id })
+      .find({ donar: req.params.id, organisation: req.body.userId })
       .sort({ createdAt: -1 });
     // console.log(inventory);
     return res.status(200).send({
@@ -413,3 +414,4 @@ module.exports = {
   getRecentInventoryOrganisationController,
   getOrgListController,
 };
+///////////////////////////////////////////////////////////////////////
